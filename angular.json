@@ -111,6 +111,27 @@
           }
         }
       }
+    },
+    "core-model": {
+      "root": "packs/core/model",
+      "sourceRoot": "packs/core/model/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packs/core/model/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/packs/core/model"],
+          "options": {
+            "jestConfig": "packs/core/model/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

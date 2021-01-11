@@ -22,6 +22,10 @@
       }
     }
   },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "packs"
+  },
   "projects": {
     "peek": {
       "tags": []
@@ -29,6 +33,9 @@
     "peek-e2e": {
       "tags": [],
       "implicitDependencies": ["peek"]
+    },
+    "core-model": {
+      "tags": []
     }
   }
 }
