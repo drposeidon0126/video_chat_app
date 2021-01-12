@@ -18,6 +18,7 @@
             "aot": true,
             "assets": ["apps/peek/src/favicon.ico", "apps/peek/src/assets"],
             "styles": ["apps/peek/src/styles.scss"],
+            "allowedCommonJsDependencies": ["socket.io-client"],
             "scripts": []
           },
           "configurations": {
@@ -53,7 +54,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "peek:build"
+            "browserTarget": "peek:build",
+            "proxyConfig": "apps/peek/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -165,6 +167,57 @@
           "outputs": ["coverage/packs/ui/peek"],
           "options": {
             "jestConfig": "packs/ui/peek/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "seek": {
+      "root": "apps/seek",
+      "sourceRoot": "apps/seek/src",
+      "projectType": "application",
+      "prefix": "seek",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/seek",
+            "main": "apps/seek/src/main.ts",
+            "tsConfig": "apps/seek/tsconfig.app.json",
+            "assets": ["apps/seek/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/seek/src/environments/environment.ts",
+                  "with": "apps/seek/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "seek:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/seek/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/seek"],
+          "options": {
+            "jestConfig": "apps/seek/jest.config.js",
             "passWithNoTests": true
           }
         }

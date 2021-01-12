@@ -1,12 +1,11 @@
-/*
- * Remove template code below
- */
+
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   font-family: sans-serif;
   min-width: 300px;
-  max-width: 600px;
-  margin: 50px auto;
+  margin: 0px auto;
+  width: 100%;
 }
 
 .gutter-left {
@@ -27,7 +26,6 @@ header {
   background-color: #143055;
   color: white;
   padding: 5px;
-  border-radius: 3px;
 }
 
 main {

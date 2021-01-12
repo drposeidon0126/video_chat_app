@@ -1,16 +1,11 @@
-import { Code, code } from '@peek/core/model'
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'peek-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'peek'
-
-  ngAfterViewInit(): void {
-    const user = code()
-    console.log(user)
-   }
+  constructor() {}
 }

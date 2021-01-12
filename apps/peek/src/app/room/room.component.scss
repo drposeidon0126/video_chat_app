@@ -1,0 +1,58 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .center {
+    position: absolute;
+    text-align: center;
+    max-width: 150px;
+
+    h3 {
+      margin-top: 16px;
+      line-height: 1.2;
+    }
+  }
+}
+
+#remote {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  video {
+    max-width: 100vw;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+#local {
+  right: 4px;
+  width: 240px;
+  height: auto;
+  max-width: 240px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  position: fixed;
+  padding: 0;
+  bottom: 4px;
+  video {
+    width: inherit;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: -8px;
+  }
+  .mat-card-actions {
+    position: absolute;
+    bottom: 0;
+    margin: 0 6px -3px;
+    z-index: 10;
+    color: white;
+  }
+}
