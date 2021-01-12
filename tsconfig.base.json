@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@peek/core/model": ["packs/core/model/src/index.ts"]
+      "@peek/core/model": ["packs/core/model/src/index.ts"],
+      "@peek/ui/peek": ["packs/ui/peek/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

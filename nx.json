@@ -36,6 +36,9 @@
     },
     "core-model": {
       "tags": []
+    },
+    "ui-peek": {
+      "tags": []
     }
   }
 }

@@ -1,3 +1,7 @@
 module.exports = {
-  projects: ['<rootDir>/apps/peek', '<rootDir>/packs/core/model'],
-};
+  projects: [
+    '<rootDir>/apps/peek',
+    '<rootDir>/packs/core/model',
+    '<rootDir>/packs/ui/peek',
+  ],
+}
