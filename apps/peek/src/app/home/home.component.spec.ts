@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { UiPeekModule, PeekMaterialModule } from '@peek/ui/peek'
+import { CorePeekModule, PeekMaterialModule } from '@peek/core/peek'
 import { HomeComponent } from './home.component'
 
 describe('HomeComponent', () => {
@@ -8,7 +8,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiPeekModule, PeekMaterialModule],
+      imports: [CorePeekModule, PeekMaterialModule],
       declarations: [HomeComponent],
     }).compileComponents()
   })

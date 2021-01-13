@@ -1,7 +1,7 @@
 import { PeerEvent, Signaling } from '@peek/core/model'
 import { takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs'
-import { getMedia } from '@peek/ui/peek'
+import { getMedia } from '@peek/core/peek'
 import { Component } from '@angular/core'
 
 @Component({ template: '' })

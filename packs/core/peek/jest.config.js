@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'ui-peek',
+  displayName: 'core-peek',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../../coverage/packs/ui/peek',
+  coverageDirectory: '../../../coverage/packs/core/peek',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

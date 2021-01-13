@@ -10,15 +10,27 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@peek/core/model": ["packs/core/model/src/index.ts"],
-      "@peek/ui/peek": ["packs/ui/peek/src/index.ts"],
-      "@peek/shared/assets": ["packs/shared/assets/src/index.ts"]
+      "@peek/core/model": [
+        "packs/core/model/src/index.ts"
+      ],
+      "@peek/shared/assets": [
+        "packs/shared/assets/src/index.ts"
+      ],
+      "@peek/core/peek": [
+        "packs/core/peek/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

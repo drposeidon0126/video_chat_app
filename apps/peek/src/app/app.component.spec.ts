@@ -8,16 +8,16 @@ import { Signaling } from '@peek/core/model'
 import {
   SignalingFactory,
   SIGNALING_CLIENT,
-  UiPeekModule,
+  CorePeekModule,
   PeekMaterialModule,
-} from '@peek/ui/peek'
+} from '@peek/core/peek'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        UiPeekModule,
+        CorePeekModule,
         PeekMaterialModule,
         MatSidenavModule,
         BrowserAnimationsModule,

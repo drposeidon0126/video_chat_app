@@ -16,13 +16,22 @@
             "polyfills": "apps/peek/src/polyfills.ts",
             "tsConfig": "apps/peek/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/peek/src/favicon.ico", "apps/peek/src/assets", {
-              "input": "packs/shared/assets/src/lib",
-              "glob": "**/*",
-              "output": "assets"
-            }],
-            "styles": ["apps/peek/src/styles.scss"],
-            "allowedCommonJsDependencies": ["socket.io-client"],
+            "assets": [
+              "apps/peek/src/favicon.ico",
+              "apps/peek/src/assets",
+              {
+                "input": "packs/shared/assets/src/lib",
+                "glob": "**/*",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "apps/peek/src/styles.scss"
+            ],
+            "allowedCommonJsDependencies": [
+              "socket.io-client",
+              "zone.js/dist/zone-error"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -84,7 +93,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/peek"],
+          "outputs": [
+            "coverage/apps/peek"
+          ],
           "options": {
             "jestConfig": "apps/peek/jest.config.js",
             "passWithNoTests": true
@@ -113,7 +124,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/peek-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/peek-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -126,52 +139,31 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/core/model/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/core/model"],
-          "options": {
-            "jestConfig": "packs/core/model/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ui-peek": {
-      "projectType": "library",
-      "root": "packs/ui/peek",
-      "sourceRoot": "packs/ui/peek/src",
-      "prefix": "peek",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:ng-packagr-lite",
-          "options": {
-            "tsConfig": "packs/ui/peek/tsconfig.lib.json",
-            "project": "packs/ui/peek/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "packs/ui/peek/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
             "lintFilePatterns": [
-              "packs/ui/peek/src/**/*.ts",
-              "packs/ui/peek/src/**/*.html"
+              "packs/core/model/**/*.ts"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/ui/peek"],
+          "outputs": [
+            "coverage/packs/core/model"
+          ],
           "options": {
-            "jestConfig": "packs/ui/peek/jest.config.js",
+            "jestConfig": "packs/core/model/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packs/core/model",
+            "tsConfig": "packs/core/model/tsconfig.lib.json",
+            "packageJson": "packs/core/model/package.json",
+            "main": "packs/core/model/src/index.ts",
+            "assets": [
+              "packs/core/model/*.md"
+            ]
           }
         }
       }
@@ -184,12 +176,16 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/seek",
             "main": "apps/seek/src/main.ts",
             "tsConfig": "apps/seek/tsconfig.app.json",
-            "assets": ["apps/seek/src/assets"]
+            "assets": [
+              "apps/seek/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -214,12 +210,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/seek/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/seek/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/seek"],
+          "outputs": [
+            "coverage/apps/seek"
+          ],
           "options": {
             "jestConfig": "apps/seek/jest.config.js",
             "passWithNoTests": true
@@ -235,7 +235,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/shared/assets/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/shared/assets/**/*.ts"
+            ]
           }
         }
       }
@@ -248,7 +250,48 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/shared/styles/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/shared/styles/**/*.ts"
+            ]
+          }
+        }
+      }
+    },
+    "core-peek": {
+      "projectType": "library",
+      "root": "packs/core/peek",
+      "sourceRoot": "packs/core/peek/src",
+      "prefix": "peek",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "packs/core/peek/tsconfig.lib.json",
+            "project": "packs/core/peek/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packs/core/peek/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packs/core/peek/src/**/*.ts",
+              "packs/core/peek/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packs/core/peek"
+          ],
+          "options": {
+            "jestConfig": "packs/core/peek/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

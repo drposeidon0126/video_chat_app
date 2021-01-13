@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
-import { SignalingFactory, SIGNALING_CLIENT } from '@peek/ui/peek'
-import { PeekMaterialModule, UiPeekModule } from '@peek/ui/peek'
+import { SignalingFactory, SIGNALING_CLIENT } from '@peek/core/peek'
+import { PeekMaterialModule, CorePeekModule } from '@peek/core/peek'
 import { Signaling } from '@peek/core/model'
 import { AppComponent } from './app.component'
 import { RoomComponent } from './room/room.component'
@@ -16,7 +16,7 @@ import { Room } from './room/room'
 @NgModule({
   declarations: [AppComponent, Room, RoomComponent, HomeComponent],
   imports: [
-    UiPeekModule,
+    CorePeekModule,
     BrowserModule,
     AppRoutingModule,
     MatSidenavModule,

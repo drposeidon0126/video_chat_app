@@ -69,6 +69,7 @@
     "@nrwl/node": "11.1.2",
     "@nrwl/tao": "11.1.1",
     "@nrwl/workspace": "11.1.1",
+    "@trellisorg/make-buildable": "0.0.10",
     "@types/jest": "26.0.8",
     "@types/node": "12.12.38",
     "@types/socket.io": "^2.1.12",

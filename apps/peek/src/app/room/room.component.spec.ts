@@ -5,9 +5,9 @@ import { Signaling } from '@peek/core/model'
 import {
   SignalingFactory,
   SIGNALING_CLIENT,
-  UiPeekModule,
+  CorePeekModule,
   PeekMaterialModule,
-} from '@peek/ui/peek'
+} from '@peek/core/peek'
 
 (window as any).getMedia = jest.fn()
 
@@ -17,7 +17,7 @@ describe('RoomComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiPeekModule, PeekMaterialModule],
+      imports: [CorePeekModule, PeekMaterialModule],
       providers: [
         {
           provide: SIGNALING_CLIENT,

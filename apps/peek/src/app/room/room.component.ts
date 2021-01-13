@@ -47,7 +47,6 @@ export class RoomComponent extends Room implements AfterViewInit, OnDestroy {
         // não defina srcObject caso já esteja definido.
         if (this.remoteView.srcObject) return
         this.remoteView.srcObject = streams[0]
-        this.remoteView.muted = true
         this.active.next(true)
       })
     })

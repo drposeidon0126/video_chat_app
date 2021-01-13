@@ -7,4 +7,4 @@ import { ToPeerComponent } from './components/to-peer/to-peer.component'
   declarations: [ToPeerComponent],
   exports: [ToPeerComponent],
 })
-export class UiPeekModule {}
+export class CorePeekModule {}
