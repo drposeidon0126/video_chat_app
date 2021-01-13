@@ -1,6 +1,6 @@
 export const env = {
   prod: true,
-  seek: 'https://seek.peek.contact:3000',
+  seek: 'https://seek.peek.contact',
   constraints: {
     audio: {
       channelCount: {
