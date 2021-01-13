@@ -56,5 +56,3 @@ jobs:
           publish_dir: ./dist/apps/peek
           # Set custom domain
           cname: peek.contact
-        env:
-          CI: true
