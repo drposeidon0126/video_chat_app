@@ -12,15 +12,15 @@ import {
 } from '@peek/core/peek'
 
 const media = {
-  getUserMedia: jest.fn().mockImplementation(query => {
-    return new Promise((resolve) => {
+  getUserMedia: jest.fn().mockImplementation((query) => {
+    return new Promise((resolve, reject) => {
       return {
-        getTracks: jest.fn()
+        getTracks: jest.fn(),
       }
     })
   }),
   getDevices: jest.fn(),
-  getDisplayMedia: jest.fn()
+  getDisplayMedia: jest.fn(),
 }
 
 describe('RoomComponent', () => {
@@ -51,8 +51,8 @@ describe('RoomComponent', () => {
         },
         {
           provide: Media,
-          useValue: media
-        }
+          useValue: media,
+        },
       ],
       declarations: [RoomComponent],
     }).compileComponents()
@@ -66,5 +66,14 @@ describe('RoomComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should self video be muted, but no remote', async () => {
+    spyOn(component, 'active$')
+    component.active$.toPromise().then(() => {
+      expect(component.active.next).toBeCalled()
+      expect(component.selfView.muted).toBeTruthy()
+      expect(component.remoteView.muted).toBeFalsy()
+    })
   })
 })

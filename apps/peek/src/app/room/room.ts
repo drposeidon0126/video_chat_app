@@ -34,15 +34,11 @@ export class Room {
   start = async () => {
     try {
       if (this.media) {
-        this.stream = await this.media.getUserMedia({
-          audio: true,
-          video: true,
-        })
+        this.stream = await this.media.getUserMedia()
         for (const track of this.stream.getTracks()) {
           this.pc.addTrack(track, this.stream)
         }
         this.selfView.srcObject = this.stream
-        this.remoteView.muted = true
         this.selfView.muted = true
       }
     } catch (err) {
@@ -142,7 +138,9 @@ export class Room {
   }
 
   ngOnDestroy() {
-    this.hangup()
+    if (this.stream?.active) {
+      this.hangup()
+    }
     this.destroy$.next()
     this.destroy$.complete()
   }

@@ -22,4 +22,8 @@ describe('ToPeerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should initialize inactive', () => {
+    expect(component.active).toBeFalsy()
+  });
 });
