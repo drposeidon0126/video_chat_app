@@ -1,3 +1,7 @@
+import { Media, PeerEvent, Signaling, uuid } from '@peek/core/model'
+import { takeUntil } from 'rxjs/operators'
+import { Router } from '@angular/router'
+import { Subject } from 'rxjs'
 import {
   AfterViewInit,
   Component,
@@ -5,30 +9,83 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core'
-import { Subject } from 'rxjs'
-import { Room } from './room'
-import { Media, Signaling, uuid } from '@peek/core/model'
 
 @Component({
   selector: 'peek-room',
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
 })
-export class RoomComponent extends Room implements AfterViewInit, OnDestroy {
+export class RoomComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('selfView') selfViewRef: ElementRef<HTMLVideoElement>
+  selfView: HTMLVideoElement
+
+  @ViewChild('remoteView') remoteViewRef: ElementRef<HTMLVideoElement>
+  remoteView: HTMLVideoElement
+
+  destroy$ = new Subject<void>()
+
   active = new Subject<boolean>()
   active$ = this.active.asObservable()
 
-  @ViewChild('selfView') selfViewRef: ElementRef<HTMLVideoElement>
+  pc: RTCPeerConnection
+  sender: string
 
-  @ViewChild('remoteView') remoteViewRef: ElementRef<HTMLVideoElement>
+  /**
+   * ajuda no controle de estado em
+   * negociações evitando conflitos
+   */
+  makingOffer = false
+  ignoreOffer = false
+  isSettingRemoteAnswerPending = false
 
-  constructor(protected signaling: Signaling, protected media: Media) {
-    super(signaling, media)
+  offerOptions: RTCOfferOptions = {
+    offerToReceiveAudio: true,
+    offerToReceiveVideo: true,
+  }
+
+  stream: MediaStream
+
+  constructor(
+    private router: Router,
+    private signaling: Signaling,
+    private media: Media
+  ) {}
+
+  start = async () => {
+    try {
+      if (this.media) {
+        this.stream = await this.media.getUserMedia()
+        for (const track of this.stream.getTracks()) {
+          this.pc.addTrack(track, this.stream)
+        }
+        this.selfView.srcObject = this.stream
+        this.selfView.muted = true
+      }
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   restart = async () => {
     this.offerOptions.iceRestart = true
     this.makeOffer(this.offerOptions)
+  }
+
+  async makeOffer(options?: RTCOfferOptions) {
+    try {
+      this.makingOffer = true
+      this.pc.createOffer(options).then((offer) => {
+        const description = new RTCSessionDescription(offer)
+
+        this.pc.setLocalDescription(description)
+
+        this.signaling.send({ sender: this.sender, description })
+      })
+    } catch (err) {
+      console.error(err)
+    } finally {
+      this.makingOffer = false
+    }
   }
 
   ngAfterViewInit() {
@@ -51,12 +108,89 @@ export class RoomComponent extends Room implements AfterViewInit, OnDestroy {
       })
     })
 
-    this.afterViewComplete()
+    // enviar qualquer candidato de gelo para o outro par
+    this.pc.addEventListener('icecandidate', ({ candidate }) => {
+      if (candidate) {
+        this.signaling.send({ sender: this.sender, candidate })
+      }
+    })
+
+    // deixe o evento "necessário para a negociação" gerar a oferta
+    this.pc.addEventListener('negotiationneeded', async () => {
+      this.makeOffer(this.offerOptions)
+    })
+
+    this.signaling.message$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(async ({ sender, description, candidate }) => {
+        console.log('sender: ', sender)
+        try {
+          if (description) {
+            // Uma oferta pode chegar enquanto estamos ocupados processando uma resposta.
+            // Nesse caso, estaremos "estáveis" no momento em que a oferta for processada
+            // Sendo assim, apenas a partir disso devemos seguir com nossas operações.
+
+            const readyForOffer =
+              !this.makingOffer &&
+              (this.pc.signalingState == 'stable' ||
+                this.isSettingRemoteAnswerPending)
+
+            // É uma oferta e não está aguardando nada
+            const offerCollision =
+              description.type == PeerEvent.Offer && !readyForOffer
+
+            const polite = sender === this.sender
+
+            this.ignoreOffer = polite && offerCollision
+            if (this.ignoreOffer) {
+              return
+            }
+            this.isSettingRemoteAnswerPending =
+              description.type == PeerEvent.Answer
+
+            await this.pc.setRemoteDescription(description) // SRD reverte conforme necessário
+
+            this.isSettingRemoteAnswerPending = false
+
+            if (description.type == PeerEvent.Offer) {
+              await this.pc.setLocalDescription(await this.pc.createAnswer())
+              if (this.pc.localDescription) {
+                this.signaling.send({ description: this.pc.localDescription })
+              }
+            }
+          } else if (candidate) {
+            try {
+              await this.pc.addIceCandidate(candidate)
+            } catch (err) {
+              if (!this.ignoreOffer) throw err // Suprimir os candidatos da oferta ignorada
+            }
+          }
+        } catch (err) {
+          console.error(err)
+        }
+      })
 
     this.start()
   }
-  end() {
+
+  hangup() {
+    this.router.navigate(['/home'])
+  }
+
+  ngOnDestroy() {
+    if (this.stream?.active) {
+      this.stream.getTracks().forEach((t) => t.stop())
+    }
+    if (this.signaling?.io.connected) {
+      this.signaling.io.disconnect()
+    }
+
+    if (this.pc) {
+      this.pc.close()
+      Object.defineProperties(this.pc, {})
+    }
+    this.destroy$.next()
+    this.destroy$.complete()
     this.active.next(false)
-    this.hangup()
   }
 }

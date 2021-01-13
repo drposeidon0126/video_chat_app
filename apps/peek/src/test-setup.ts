@@ -9,11 +9,10 @@ Object.defineProperty(navigator, 'mediaDevices', {
 Object.defineProperty(window, 'RTCPeerConnection', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // Deprecated
-    removeListener: jest.fn(), // Deprecated
+    localDescription: query,
+    remoteDescription: query,
+    close: jest.fn(),
+    addTrack: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),

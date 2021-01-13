@@ -50,7 +50,7 @@ jobs:
 
       - name: Setup assets
         run: |
-          npm run nx build peek --with-deps --prod
+          npm run nx build peek -- --with-deps --prod
           mkdir public
           mv dist/apps/peek/* ./public/
 

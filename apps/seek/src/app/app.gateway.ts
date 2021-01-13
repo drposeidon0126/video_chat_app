@@ -3,13 +3,35 @@ import {
   ConnectedSocket,
   SubscribeMessage,
   WebSocketGateway,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
 } from '@nestjs/websockets'
-import { Message } from '@peek/core/model'
+import { Message, PeerAction } from '@peek/core/model'
 import { Socket } from 'socket.io'
 
 @WebSocketGateway()
-export class AppGateway {
-  @SubscribeMessage('message')
+export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  contacts = new Map<string, string>()
+  handleConnection(
+    @ConnectedSocket() contact: Socket,
+    @MessageBody() peerContact: string
+  ) {
+    this.contacts.set(contact.id, peerContact)
+    const contacts = Array.from(this.contacts.values())
+    console.log('connect: ', contact.id)
+    console.log(contacts)
+
+    contact.broadcast.emit('contacts', contacts)
+    console.log(peerContact)
+  }
+  handleDisconnect(contact: Socket) {
+    console.log('disconnect: ', contact.id)
+
+    if (this.contacts.has(contact.id)) {
+      this.contacts.delete(contact.id)
+    }
+  }
+  @SubscribeMessage(PeerAction.Message)
   handleMessage(
     @ConnectedSocket() contact: Socket,
     @MessageBody() peerContact: Message

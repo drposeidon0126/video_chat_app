@@ -23,7 +23,8 @@
                 "input": "packs/shared/assets/src/lib",
                 "glob": "**/*",
                 "output": "assets"
-              }
+              },
+              "apps/peek/src/manifest.webmanifest"
             ],
             "styles": [
               "apps/peek/src/styles.scss"
@@ -60,7 +61,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/peek/ngsw-config.json"
             }
           }
         },

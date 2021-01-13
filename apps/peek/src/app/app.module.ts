@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { RoomComponent } from './room/room.component'
 import { HomeComponent } from './home/home.component'
+import { ServiceWorkerModule } from '@angular/service-worker'
 import { PeekMaterialModule, CorePeekModule } from '@peek/core/peek'
 import { Signaling, Media } from '@peek/core/model'
 import {
@@ -15,11 +16,10 @@ import {
   SignalingFactory,
   SIGNALING_CLIENT,
 } from '@peek/core/peek'
-import { Room } from './room/room'
 import { env } from '../envs/env'
 
 @NgModule({
-  declarations: [AppComponent, Room, RoomComponent, HomeComponent],
+  declarations: [AppComponent, RoomComponent, HomeComponent],
   imports: [
     CorePeekModule,
     BrowserModule,
@@ -28,6 +28,7 @@ import { env } from '../envs/env'
     PeekMaterialModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: env.prod }),
   ],
   providers: [
     {

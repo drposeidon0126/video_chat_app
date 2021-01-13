@@ -13,6 +13,7 @@ import { RoomComponent } from './room/room.component'
         { path: 'room/:code', component: RoomComponent },
       ],
       {
+        useHash: true,
         initialNavigation: 'enabled',
         relativeLinkResolution: 'legacy',
       }

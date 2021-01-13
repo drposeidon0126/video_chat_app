@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
 import { env } from '../../envs/env'
 import { RoomComponent } from './room.component'
 import { Signaling, Media } from '@peek/core/model'
@@ -15,7 +16,7 @@ const media = {
   getUserMedia: jest.fn().mockImplementation((query) => {
     return new Promise((resolve, reject) => {
       return {
-        getTracks: jest.fn(),
+        getTracks: jest.fn().mockResolvedValue([1,2,3])
       }
     })
   }),
@@ -29,7 +30,7 @@ describe('RoomComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CorePeekModule, PeekMaterialModule],
+      imports: [CorePeekModule, PeekMaterialModule, RouterTestingModule],
       providers: [
         {
           provide: SIGNALING_CLIENT,
@@ -74,6 +75,14 @@ describe('RoomComponent', () => {
       expect(component.active.next).toBeCalled()
       expect(component.selfView.muted).toBeTruthy()
       expect(component.remoteView.muted).toBeFalsy()
+    })
+  })
+
+  it('should self video be muted, but no remote', async () => {
+    spyOn(component, 'active$')
+    component.active$.toPromise().then(() => {
+      expect(component.selfView.srcObject).toBeDefined()
+
     })
   })
 })
