@@ -298,6 +298,43 @@
           }
         }
       }
+    },
+    "core-usecase": {
+      "root": "packs/core/usecase",
+      "sourceRoot": "packs/core/usecase/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packs/core/usecase/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packs/core/usecase"
+          ],
+          "options": {
+            "jestConfig": "packs/core/usecase/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packs/core/usecase",
+            "tsConfig": "packs/core/usecase/tsconfig.lib.json",
+            "packageJson": "packs/core/usecase/package.json",
+            "main": "packs/core/usecase/src/index.ts",
+            "assets": [
+              "packs/core/usecase/*.md"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

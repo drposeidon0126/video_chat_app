@@ -126,10 +126,11 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
         console.log('sender: ', sender)
         try {
           if (description) {
-            // Uma oferta pode chegar enquanto estamos ocupados processando uma resposta.
-            // Nesse caso, estaremos "estáveis" no momento em que a oferta for processada
-            // Sendo assim, apenas a partir disso devemos seguir com nossas operações.
-
+            /**
+             * Uma oferta pode chegar enquanto estamos ocupados processando uma resposta.
+             * Nesse caso, estaremos "estáveis" no momento em que a oferta for processada
+             * Sendo assim, apenas a partir disso devemos seguir com nossas operações.
+             */
             const readyForOffer =
               !this.makingOffer &&
               (this.pc.signalingState == 'stable' ||
@@ -139,19 +140,31 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
             const offerCollision =
               description.type == PeerEvent.Offer && !readyForOffer
 
+            /**
+             * Define a política identificando se
+             * a resposta veio de outro usuário
+             */
             const polite = sender === this.sender
 
             this.ignoreOffer = polite && offerCollision
             if (this.ignoreOffer) {
               return
             }
+
+            /**
+             * Assim que recebermos uma resposta, marcamos como pendente
+             * aguardando retorno para a finalizar a conexão entre pares
+             */
             this.isSettingRemoteAnswerPending =
               description.type == PeerEvent.Answer
 
-            await this.pc.setRemoteDescription(description) // SRD reverte conforme necessário
+            // O que recebemos de fora sempre será remoto
+            await this.pc.setRemoteDescription(description)
 
+            // Revertemos a configuração SRD
             this.isSettingRemoteAnswerPending = false
 
+            // Quando recebermos uma oferta, criamos e enviamos uma resposta
             if (description.type == PeerEvent.Offer) {
               await this.pc.setLocalDescription(await this.pc.createAnswer())
               if (this.pc.localDescription) {

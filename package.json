@@ -8,7 +8,7 @@
     "dev": "nx run-many --target serve --projects seek,peek --maxParallel 2 --parallel",
     "nx": "nx",
     "e2e": "ng e2e",
-    "test": "ng test",
+    "test": "jest --detectOpenHandles --verbose --coverage",
     "lint": "nx workspace-lint && ng lint",
     "build": "nx run seek:build --with-deps --prod",
     "start": "node dist/apps/seek/main.js",
