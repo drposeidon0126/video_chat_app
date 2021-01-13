@@ -48,11 +48,16 @@ jobs:
       - name: Build
         run: npm run affected:build -- --prod --base=origin/main
 
-      - name: GitHub Pages action
+      - name: Setup assets
+        run: |
+          mkdir public peek
+          mv dist/apps/peek/ ./peek/
+          mv ./peek ./public/
+
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Set an input directory for deployment.
-          publish_dir: ./dist/apps/peek
-          # Set custom domain
+          publish_dir: ./public
+          keep_files: true
           cname: peek.contact
