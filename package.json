@@ -5,12 +5,13 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "dev": "nx run-many --target serve --projects seek,peek --maxParallel 2 --parallel",
     "nx": "nx",
-    "start": "nx run-many --target serve --projects seek,peek --maxParallel 2 --parallel",
-    "build": "ng build",
+    "e2e": "ng e2e",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
-    "e2e": "ng e2e",
+    "build": "nx run seek:build --with-deps --prod",
+    "start": "node dist/apps/seek/main.js",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
@@ -27,7 +28,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^11.0.0",
     "@angular/cdk": "^11.0.3",

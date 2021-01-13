@@ -24,11 +24,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  &.call-start {
+    -webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  &.call-end {
+    -webkit-animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+          animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  }
 }
 
 #local {
   z-index: 1;
-  right: 4px;
+  left: 4px;
   width: 240px;
   height: auto;
   max-width: 240px;
@@ -44,15 +52,12 @@
     object-fit: cover;
     margin-bottom: -8px;
   }
-  .mat-card-actions {
-    position: absolute;
-    bottom: 0;
-    margin: 0 6px -3px;
-    z-index: 10;
-    color: white;
-  }
 }
-
+.mat-fab {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
 @media (orientation: landscape) {
   #remote video {
     width: 100%;

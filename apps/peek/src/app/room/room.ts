@@ -1,7 +1,7 @@
 import { PeerEvent, Signaling } from '@peek/core/model'
 import { takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs'
-import { getMedia } from '@peek/core/peek'
+import { Media } from '@peek/core/model'
 import { Component } from '@angular/core'
 
 @Component({ template: '' })
@@ -29,12 +29,15 @@ export class Room {
   selfView: HTMLVideoElement
   remoteView: HTMLVideoElement
 
-  constructor(protected signaling: Signaling) {}
+  constructor(protected signaling: Signaling, protected media: Media) {}
 
   start = async () => {
     try {
-      if (getMedia) {
-        this.stream = await getMedia({ audio: true, video: true })
+      if (this.media) {
+        this.stream = await this.media.getUserMedia({
+          audio: true,
+          video: true,
+        })
         for (const track of this.stream.getTracks()) {
           this.pc.addTrack(track, this.stream)
         }
@@ -50,13 +53,13 @@ export class Room {
   async makeOffer(options?: RTCOfferOptions) {
     try {
       this.makingOffer = true
-      await this.pc.setLocalDescription(await this.pc.createOffer(options))
-      if (this.pc.localDescription) {
-        this.signaling.send({
-          sender: this.sender,
-          description: this.pc.localDescription,
-        })
-      }
+      this.pc.createOffer(options).then((offer) => {
+        const description = new RTCSessionDescription(offer)
+
+        this.pc.setLocalDescription(description)
+
+        this.signaling.send({ sender: this.sender, description })
+      })
     } catch (err) {
       console.error(err)
     } finally {
@@ -84,13 +87,16 @@ export class Room {
         console.log('sender: ', sender)
         try {
           if (description) {
-            // Uma oferta pode chegar enquanto estamos ocupados processando SRD (resposta).
+            // Uma oferta pode chegar enquanto estamos ocupados processando uma resposta.
             // Nesse caso, estaremos "estáveis" no momento em que a oferta for processada
-            // então é seguro encadear em nossa Cadeia de Operações agora.
+            // Sendo assim, apenas a partir disso devemos seguir com nossas operações.
+
             const readyForOffer =
               !this.makingOffer &&
               (this.pc.signalingState == 'stable' ||
                 this.isSettingRemoteAnswerPending)
+
+            // É uma oferta e não está aguardando nada
             const offerCollision =
               description.type == PeerEvent.Offer && !readyForOffer
 

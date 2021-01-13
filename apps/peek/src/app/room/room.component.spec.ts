@@ -1,15 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { env } from '../../envs/env'
 import { RoomComponent } from './room.component'
-import { Signaling } from '@peek/core/model'
+import { Signaling, Media } from '@peek/core/model'
 import {
-  SignalingFactory,
-  SIGNALING_CLIENT,
   CorePeekModule,
   PeekMaterialModule,
+  SignalingFactory,
+  SIGNALING_CLIENT,
+  MediaFactory,
+  MEDIA_CONSTRAINTS,
 } from '@peek/core/peek'
 
-(window as any).getMedia = jest.fn()
+const media = {
+  getUserMedia: jest.fn().mockImplementation(query => {
+    return new Promise((resolve) => {
+      return {
+        getTracks: jest.fn()
+      }
+    })
+  }),
+  getDevices: jest.fn(),
+  getDisplayMedia: jest.fn()
+}
 
 describe('RoomComponent', () => {
   let component: RoomComponent
@@ -28,6 +40,19 @@ describe('RoomComponent', () => {
           useFactory: SignalingFactory,
           deps: [SIGNALING_CLIENT],
         },
+        {
+          provide: MEDIA_CONSTRAINTS,
+          useValue: env.constraints,
+        },
+        {
+          provide: Media,
+          useFactory: MediaFactory,
+          deps: [MEDIA_CONSTRAINTS],
+        },
+        {
+          provide: Media,
+          useValue: media
+        }
       ],
       declarations: [RoomComponent],
     }).compileComponents()

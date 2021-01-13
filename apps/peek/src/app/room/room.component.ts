@@ -7,7 +7,7 @@ import {
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Room } from './room'
-import { Signaling, uuid } from '@peek/core/model'
+import { Media, Signaling, uuid } from '@peek/core/model'
 
 @Component({
   selector: 'peek-room',
@@ -22,8 +22,8 @@ export class RoomComponent extends Room implements AfterViewInit, OnDestroy {
 
   @ViewChild('remoteView') remoteViewRef: ElementRef<HTMLVideoElement>
 
-  constructor(protected signaling: Signaling) {
-    super(signaling)
+  constructor(protected signaling: Signaling, protected media: Media) {
+    super(signaling, media)
   }
 
   restart = async () => {
@@ -54,5 +54,9 @@ export class RoomComponent extends Room implements AfterViewInit, OnDestroy {
     this.afterViewComplete()
 
     this.start()
+  }
+  end() {
+    this.active.next(false)
+    this.hangup()
   }
 }

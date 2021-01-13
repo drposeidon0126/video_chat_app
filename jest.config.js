@@ -1,9 +1,8 @@
 module.exports = {
   projects: [
     '<rootDir>/apps/peek',
-    '<rootDir>/packs/core/model',
-    '<rootDir>/packs/ui/peek',
     '<rootDir>/apps/seek',
-    '<rootDir>/packs/shared/assets',
+    '<rootDir>/packs/core/model',
+    '<rootDir>/packs/core/peek',
   ],
 }

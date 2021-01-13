@@ -1,9 +1,15 @@
 <div class="center" *ngIf="(active$ | async) === null">
   <peek-to-peer #calling [active]="(active$ | async) === true"></peek-to-peer>
 </div>
-<div id="remote">
-  <video #remoteView autoplay muted></video>
+<div id="remote" [ngClass]="{
+  'call-start': (active$ | async) === true,
+  'call-end': (active$ | async) === false
+}">
+  <video #remoteView autoplay></video>
 </div>
 <mat-card id="local" class="mat-elevation-z2">
   <video #selfView autoplay muted></video>
 </mat-card>
+<button type="button" mat-fab color="warn" (click)="end()">
+  <mat-icon>call_end</mat-icon>
+</button>

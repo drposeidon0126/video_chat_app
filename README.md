@@ -2,7 +2,7 @@
 
 <center>
 
-![Conectando](packs/shared/assets/src/lib/images/logo.svg)
+![Peek Contact](packs/shared/assets/src/lib/images/logo.svg)
 
 ![Conectando](packs/shared/assets/src/lib/images/loading.svg)
 ![Conectando](packs/shared/assets/src/lib/images/loading.svg)
