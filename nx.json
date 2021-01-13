@@ -1,9 +1,14 @@
 {
   "npmScope": "peek",
-  "affected": { "defaultBase": "main" },
+  "affected": {
+    "defaultBase": "main"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -12,15 +17,38 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
     }
   },
-  "workspaceLayout": { "appsDir": "apps", "libsDir": "packs" },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "packs"
+  },
   "projects": {
-    "peek": { "tags": [] },
-    "peek-e2e": { "tags": [], "implicitDependencies": ["peek"] },
-    "core-model": { "tags": [] },
-    "ui-peek": { "tags": [] },
-    "seek": { "tags": [] }
+    "peek": {
+      "tags": [],
+      "implicitDependencies": ["shared-assets"]
+    },
+    "peek-e2e": {
+      "tags": [],
+      "implicitDependencies": ["peek"]
+    },
+    "core-model": {
+      "tags": []
+    },
+    "ui-peek": {
+      "tags": []
+    },
+    "seek": {
+      "tags": []
+    },
+    "shared-assets": {
+      "tags": []
+    },
+    "shared-styles": {
+      "tags": []
+    }
   }
 }

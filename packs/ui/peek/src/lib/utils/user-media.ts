@@ -28,7 +28,7 @@ const defaultConstraints: MediaStreamConstraints = {
     },
   },
 }
-export const getUserMedia = (constraints?: MediaStreamConstraints) => {
+export const getMedia = (constraints?: MediaStreamConstraints) => {
   return navigator.mediaDevices.getUserMedia(
     constraints ? constraints : defaultConstraints
   )

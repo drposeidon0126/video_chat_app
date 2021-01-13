@@ -24,14 +24,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  video {
-    max-width: 100vw;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 
 #local {
+  z-index: 1;
   right: 4px;
   width: 240px;
   height: auto;
@@ -54,5 +50,21 @@
     margin: 0 6px -3px;
     z-index: 10;
     color: white;
+  }
+}
+
+@media (orientation: landscape) {
+  #remote video {
+    width: 100%;
+    max-height: calc(100vh - 64px);
+    object-fit: cover;
+  }
+}
+
+@media (orientation: portrait) {
+  #remote video {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

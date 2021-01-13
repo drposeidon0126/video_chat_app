@@ -1,5 +1,4 @@
 export * from './lib/core-model'
-export * from './lib/util/user-media'
 export * from './lib/peer-event'
 export * from './lib/signaling'
 export * from './lib/util/code'

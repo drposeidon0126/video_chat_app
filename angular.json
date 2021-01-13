@@ -16,7 +16,11 @@
             "polyfills": "apps/peek/src/polyfills.ts",
             "tsConfig": "apps/peek/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/peek/src/favicon.ico", "apps/peek/src/assets"],
+            "assets": ["apps/peek/src/favicon.ico", "apps/peek/src/assets", {
+              "input": "packs/shared/assets/src/lib",
+              "glob": "**/*",
+              "output": "assets"
+            }],
             "styles": ["apps/peek/src/styles.scss"],
             "allowedCommonJsDependencies": ["socket.io-client"],
             "scripts": []
@@ -25,8 +29,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/peek/src/environments/environment.ts",
-                  "with": "apps/peek/src/environments/environment.prod.ts"
+                  "replace": "apps/peek/src/envs/env.ts",
+                  "with": "apps/peek/src/envs/env.prod.ts"
                 }
               ],
               "optimization": true,
@@ -194,8 +198,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/seek/src/environments/environment.ts",
-                  "with": "apps/seek/src/environments/environment.prod.ts"
+                  "replace": "apps/seek/src/envs/env.ts",
+                  "with": "apps/seek/src/envs/env.prod.ts"
                 }
               ]
             }
@@ -219,6 +223,32 @@
           "options": {
             "jestConfig": "apps/seek/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-assets": {
+      "root": "packs/shared/assets",
+      "sourceRoot": "packs/shared/assets/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packs/shared/assets/**/*.ts"]
+          }
+        }
+      }
+    },
+    "shared-styles": {
+      "root": "packs/shared/styles",
+      "sourceRoot": "packs/shared/styles/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packs/shared/styles/**/*.ts"]
           }
         }
       }

@@ -41,11 +41,13 @@ export class RoomComponent extends Room implements AfterViewInit, OnDestroy {
     })
 
     this.pc.addEventListener('track', ({ track, streams }) => {
-      // assim que a mídia para uma trilha remota chegar, mostre-a no elemento de vídeo remoto
-      track.addEventListener('unmute', () => {
-        // não defina srcObject novamente se já estiver definido.
+      // assim que a mídia remota chegar,
+      // mostre-a no elemento de vídeo remoto
+      track.addEventListener('unmute', async () => {
+        // não defina srcObject caso já esteja definido.
         if (this.remoteView.srcObject) return
         this.remoteView.srcObject = streams[0]
+        this.remoteView.muted = true
         this.active.next(true)
       })
     })

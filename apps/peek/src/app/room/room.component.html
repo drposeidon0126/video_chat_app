@@ -1,18 +1,9 @@
 <div class="center" *ngIf="(active$ | async) === null">
-  <!-- <quertc-calling
-    #calling
-    [active]="(active$ | async) === true"
-  ></quertc-calling> -->
+  <peek-to-peer #calling [active]="(active$ | async) === true"></peek-to-peer>
 </div>
 <div id="remote">
-  <video #remoteView autoplay></video>
+  <video #remoteView autoplay muted></video>
 </div>
 <mat-card id="local" class="mat-elevation-z2">
-  <video #selfView autoplay></video>
-  <mat-card-actions>
-    <!-- <button mat-icon-button (click)="restart()">
-      <mat-icon>replay</mat-icon>
-    </button> -->
-    <!-- <quertc-mute-button [video]="selfView"> </quertc-mute-button> -->
-  </mat-card-actions>
+  <video #selfView autoplay muted></video>
 </mat-card>

@@ -1,7 +1,7 @@
 import { PeerEvent, Signaling } from '@peek/core/model'
 import { takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs'
-import { getUserMedia } from '@peek/core/model'
+import { getMedia } from '@peek/ui/peek'
 import { Component } from '@angular/core'
 
 @Component({ template: '' })
@@ -12,8 +12,8 @@ export class Room {
   sender: string
 
   /**
-   * manter o controle de algum estado de
-   * negociação para evitar corridas e erros
+   * ajuda no controle de estado em
+   * negociações evitando conflitos
    */
   makingOffer = false
   ignoreOffer = false
@@ -33,12 +33,15 @@ export class Room {
 
   start = async () => {
     try {
-      this.stream = await getUserMedia({ audio: true, video: true })
-      for (const track of this.stream.getTracks()) {
-        this.pc.addTrack(track, this.stream)
+      if (getMedia) {
+        this.stream = await getMedia({ audio: true, video: true })
+        for (const track of this.stream.getTracks()) {
+          this.pc.addTrack(track, this.stream)
+        }
+        this.selfView.srcObject = this.stream
+        this.remoteView.muted = true
+        this.selfView.muted = true
       }
-      this.selfView.srcObject = this.stream
-      this.selfView.muted = true
     } catch (err) {
       console.error(err)
     }

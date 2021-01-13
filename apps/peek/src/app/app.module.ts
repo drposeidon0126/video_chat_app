@@ -1,21 +1,24 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
+import { AppRoutingModule } from './app-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
-import { PeekMaterialModule } from '@peek/ui/peek'
-import { AppComponent } from './app.component'
 import { NgModule } from '@angular/core'
-import { RoomComponent } from './room/room.component'
 import { SignalingFactory, SIGNALING_CLIENT } from '@peek/ui/peek'
+import { PeekMaterialModule, UiPeekModule } from '@peek/ui/peek'
 import { Signaling } from '@peek/core/model'
+import { AppComponent } from './app.component'
+import { RoomComponent } from './room/room.component'
+import { HomeComponent } from './home/home.component'
+import { env } from '../envs/env'
+import { Room } from './room/room'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RoomComponent,
-  ],
+  declarations: [AppComponent, Room, RoomComponent, HomeComponent],
   imports: [
+    UiPeekModule,
     BrowserModule,
+    AppRoutingModule,
     MatSidenavModule,
     PeekMaterialModule,
     ReactiveFormsModule,
@@ -24,7 +27,7 @@ import { Signaling } from '@peek/core/model'
   providers: [
     {
       provide: SIGNALING_CLIENT,
-      useValue: 'http://localhost:3000',
+      useValue: env.seek,
     },
     {
       provide: Signaling,

@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/packs/core/model',
     '<rootDir>/packs/ui/peek',
     '<rootDir>/apps/seek',
+    '<rootDir>/packs/shared/assets',
   ],
 }

@@ -1,7 +1,22 @@
-<header class="flex">
-  <h1>Welcome to {{ title }}!</h1>
-</header>
+<mat-drawer-container class="peek-container" [hasBackdrop]="true" autosize>
 
-<main #main>
-  <peek-room></peek-room>
-</main>
+  <mat-drawer #drawer class="peek-sidenav" mode="over" role="navigation">
+    <p>Auto-resizing sidenav</p>
+  </mat-drawer>
+
+  <div class="peek-content">
+
+    <mat-toolbar role="banner">
+      <a mat-icon-button routerLink="/">
+        <mat-icon>home</mat-icon>
+      </a>
+      <h1 role="logo">Welcome to {{ title }}!</h1>
+    </mat-toolbar>
+
+    <main role="contentinfo">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</mat-drawer-container>
