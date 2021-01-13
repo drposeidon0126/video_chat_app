@@ -51,9 +51,8 @@ jobs:
       - name: Setup assets
         run: |
           npm run nx build peek --with-deps --prod
-          mkdir public peek
-          mv dist/apps/peek/ ./peek/
-          mv ./peek ./public/
+          mkdir public
+          mv dist/apps/peek/* ./public/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.7.3
