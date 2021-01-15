@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: PR
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
+  pull_request:
     branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -45,17 +45,3 @@ jobs:
 
       - name: Build
         run: npm run affected:build -- --prod --base=origin/main
-
-      - name: Setup assets
-        run: |
-          npm run nx build peek -- --with-deps --prod
-          mkdir public
-          mv dist/apps/peek/* ./public/
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.7.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          keep_files: true
-          cname: peek.contact
