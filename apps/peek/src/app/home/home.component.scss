@@ -8,13 +8,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 64px;
+    padding: 64px 64px 0;
     img {
       opacity: 0.5;
       max-height: calc(100vh - 288px);
       -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
+  }
+  #room-form {
+    margin: 16px 16px 8px;
+  }
+  .mat-form-field {
+    width: 100%;
   }
   .mat-toolbar {
     display: flex;

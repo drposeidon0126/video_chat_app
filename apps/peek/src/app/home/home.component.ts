@@ -1,21 +1,28 @@
-import { RequestPermission } from '@peek/core/usecase';
-import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'peek-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  permissions: RequestPermission
-  constructor() {}
-  ngOnInit(): void {
-    this.permissions = new RequestPermission()
+export class HomeComponent {
+  form = new FormGroup(
+    {
+      code: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]*$/)]),
+    }
+  )
+
+  get code() {
+    return this.form.get('code') as FormControl
   }
 
-  async request() {
-    const permission = await this.permissions.execute()
-    console.log(permission);
+  constructor(private _router: Router) {}
 
+  onEnter() {
+    if (this.code.valid) {
+      this._router.navigate(['/', 'room', this.code.value])
+    }
   }
 }

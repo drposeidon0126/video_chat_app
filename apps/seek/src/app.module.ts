@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common'
-import { AppGateway } from './app/app.gateway';
+import { AppGateway } from './app/app.gateway'
+import { RoomGateway } from './room/room.gateway'
 
 @Module({
   imports: [],
   controllers: [],
-  providers: [AppGateway],
+  providers: [AppGateway, RoomGateway],
 })
 export class AppModule {}

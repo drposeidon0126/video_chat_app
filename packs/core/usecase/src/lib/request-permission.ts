@@ -8,7 +8,7 @@ export type PermissionQueryOptions =
 
 export class RequestPermission
   implements UseCase<PermissionQueryOptions, PermissionStatus> {
-  execute(queryOptions?: PermissionQueryOptions): Promise<PermissionStatus> {
+  execute(queryOptions: PermissionQueryOptions): Promise<PermissionStatus> {
     return navigator.permissions.query(queryOptions)
   }
 }

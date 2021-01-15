@@ -16,10 +16,11 @@ import {
   SignalingFactory,
   SIGNALING_CLIENT,
 } from '@peek/core/peek'
-import { env } from '../envs/env'
+import { env } from '../envs/env';
+import { One2oneComponent } from './one2one/one2one.component'
 
 @NgModule({
-  declarations: [AppComponent, RoomComponent, HomeComponent],
+  declarations: [AppComponent, RoomComponent, HomeComponent, One2oneComponent],
   imports: [
     CorePeekModule,
     BrowserModule,

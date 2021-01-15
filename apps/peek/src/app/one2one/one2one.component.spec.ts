@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { env } from '../../envs/env'
-import { RoomComponent } from './room.component'
 import { Signaling, Media } from '@peek/core/model'
 import {
   CorePeekModule,
@@ -23,10 +22,11 @@ const media = {
   getDevices: jest.fn(),
   getDisplayMedia: jest.fn(),
 }
+import { One2oneComponent } from './one2one.component'
 
-describe('RoomComponent', () => {
-  let component: RoomComponent
-  let fixture: ComponentFixture<RoomComponent>
+describe('One2oneComponent', () => {
+  let component: One2oneComponent
+  let fixture: ComponentFixture<One2oneComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -55,12 +55,12 @@ describe('RoomComponent', () => {
           useValue: media,
         },
       ],
-      declarations: [RoomComponent],
+      declarations: [One2oneComponent],
     }).compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoomComponent)
+    fixture = TestBed.createComponent(One2oneComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
@@ -73,15 +73,15 @@ describe('RoomComponent', () => {
     spyOn(component, 'active$')
     component.active$.toPromise().then(() => {
       expect(component.active.next).toBeCalled()
-      expect(component.localVideo.muted).toBeTruthy()
-      expect(component.remoteVideo.muted).toBeFalsy()
+      expect(component.selfView.muted).toBeTruthy()
+      expect(component.remoteView.muted).toBeFalsy()
     })
   })
 
   it('should self video be muted, but no remote', async () => {
     spyOn(component, 'active$')
     component.active$.toPromise().then(() => {
-      expect(component.localVideo.srcObject).toBeDefined()
+      expect(component.selfView.srcObject).toBeDefined()
     })
   })
 })
