@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/packs/core/model',
     '<rootDir>/packs/core/peek',
     '<rootDir>/packs/core/usecase',
+    '<rootDir>/packs/micro/upgrade',
   ],
 }

@@ -1,12 +1,15 @@
 <mat-drawer-container class="peek-container" [hasBackdrop]="true" autosize>
-
   <mat-drawer #drawer class="peek-sidenav" mode="over" role="navigation">
-    <p>Auto-resizing sidenav</p>
+    <mat-nav-list dense>
+      <a mat-list-item routerLink="/upgrade"> Upgrade </a>
+    </mat-nav-list>
   </mat-drawer>
 
   <div class="peek-content">
-
     <mat-toolbar role="banner">
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <a mat-icon-button routerLink="/">
         <mat-icon color="accent">home</mat-icon>
       </a>
@@ -16,7 +19,5 @@
     <main role="contentinfo">
       <router-outlet></router-outlet>
     </main>
-
   </div>
-
 </mat-drawer-container>

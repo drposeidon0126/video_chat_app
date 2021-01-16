@@ -18,7 +18,8 @@
       "@peek/core/model": ["packs/core/model/src/index.ts"],
       "@peek/shared/assets": ["packs/shared/assets/src/index.ts"],
       "@peek/core/peek": ["packs/core/peek/src/index.ts"],
-      "@peek/core/usecase": ["packs/core/usecase/src/index.ts"]
+      "@peek/core/usecase": ["packs/core/usecase/src/index.ts"],
+      "@peek/micro/upgrade": ["packs/micro/upgrade/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

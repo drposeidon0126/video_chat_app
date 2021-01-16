@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { HomeComponent } from './home/home.component'
 import { RoomComponent } from './room/room.component'
+import { microUpgradeRoutes } from '@peek/micro/upgrade'
 import { One2oneComponent } from './one2one/one2one.component'
 
 @NgModule({
@@ -12,6 +13,7 @@ import { One2oneComponent } from './one2one/one2one.component'
         { path: 'home', component: HomeComponent },
         { path: 'one2one', component: One2oneComponent },
         { path: 'room/:code', component: RoomComponent },
+        ...microUpgradeRoutes,
       ],
       {
         useHash: true,

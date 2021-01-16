@@ -1,0 +1,10 @@
+<p>micro-upgrade works!</p>
+<video #localVideo id="localVideo" playsinline autoplay muted></video>
+<video #remoteVideo id="remoteVideo" playsinline autoplay></video>
+
+<div>
+  <button mat-raised-button #startButton (click)="start()">Start</button>
+  <button mat-raised-button #callButton (click)="call()">Call</button>
+  <button mat-raised-button #upgradeButton (click)="upgrade()">Turn on video</button>
+  <button mat-raised-button #hangupButton (click)="hangup()">Hang Up</button>
+</div>

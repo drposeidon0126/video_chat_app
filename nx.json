@@ -52,6 +52,9 @@
     },
     "core-usecase": {
       "tags": []
+    },
+    "micro-upgrade": {
+      "tags": []
     }
   }
 }

@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatInputModule } from '@angular/material/input'
+import { MatListModule } from '@angular/material/list'
 import { MatCardModule } from '@angular/material/card'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatIconModule } from '@angular/material/icon'
@@ -18,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon'
     MatDialogModule,
     MatInputModule,
     MatCardModule,
+    MatListModule,
     MatIconModule,
     MatTabsModule,
   ],

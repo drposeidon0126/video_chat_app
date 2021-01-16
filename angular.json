@@ -26,9 +26,7 @@
               },
               "apps/peek/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/peek/src/styles.scss"
-            ],
+            "styles": ["apps/peek/src/styles.scss"],
             "allowedCommonJsDependencies": [
               "socket.io-client",
               "zone.js/dist/zone-error"
@@ -96,9 +94,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/peek"
-          ],
+          "outputs": ["coverage/apps/peek"],
           "options": {
             "jestConfig": "apps/peek/jest.config.js",
             "passWithNoTests": true
@@ -127,9 +123,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/peek-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/peek-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -142,16 +136,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packs/core/model/**/*.ts"
-            ]
+            "lintFilePatterns": ["packs/core/model/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packs/core/model"
-          ],
+          "outputs": ["coverage/packs/core/model"],
           "options": {
             "jestConfig": "packs/core/model/jest.config.js",
             "passWithNoTests": true
@@ -164,9 +154,7 @@
             "tsConfig": "packs/core/model/tsconfig.lib.json",
             "packageJson": "packs/core/model/package.json",
             "main": "packs/core/model/src/index.ts",
-            "assets": [
-              "packs/core/model/*.md"
-            ]
+            "assets": ["packs/core/model/*.md"]
           }
         }
       }
@@ -179,16 +167,12 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/seek",
             "main": "apps/seek/src/main.ts",
             "tsConfig": "apps/seek/tsconfig.app.json",
-            "assets": [
-              "apps/seek/src/assets"
-            ]
+            "assets": ["apps/seek/src/assets"]
           },
           "configurations": {
             "production": {
@@ -213,16 +197,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/seek/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/seek/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/seek"
-          ],
+          "outputs": ["coverage/apps/seek"],
           "options": {
             "jestConfig": "apps/seek/jest.config.js",
             "passWithNoTests": true
@@ -238,9 +218,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packs/shared/assets/**/*.ts"
-            ]
+            "lintFilePatterns": ["packs/shared/assets/**/*.ts"]
           }
         }
       }
@@ -253,9 +231,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packs/shared/styles/**/*.ts"
-            ]
+            "lintFilePatterns": ["packs/shared/styles/**/*.ts"]
           }
         }
       }
@@ -289,9 +265,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packs/core/peek"
-          ],
+          "outputs": ["coverage/packs/core/peek"],
           "options": {
             "jestConfig": "packs/core/peek/jest.config.js",
             "passWithNoTests": true
@@ -307,16 +281,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packs/core/usecase/**/*.ts"
-            ]
+            "lintFilePatterns": ["packs/core/usecase/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packs/core/usecase"
-          ],
+          "outputs": ["coverage/packs/core/usecase"],
           "options": {
             "jestConfig": "packs/core/usecase/jest.config.js",
             "passWithNoTests": true
@@ -329,9 +299,44 @@
             "tsConfig": "packs/core/usecase/tsconfig.lib.json",
             "packageJson": "packs/core/usecase/package.json",
             "main": "packs/core/usecase/src/index.ts",
-            "assets": [
-              "packs/core/usecase/*.md"
+            "assets": ["packs/core/usecase/*.md"]
+          }
+        }
+      }
+    },
+    "micro-upgrade": {
+      "projectType": "library",
+      "root": "packs/micro/upgrade",
+      "sourceRoot": "packs/micro/upgrade/src",
+      "prefix": "peek",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "packs/micro/upgrade/tsconfig.lib.json",
+            "project": "packs/micro/upgrade/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packs/micro/upgrade/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packs/micro/upgrade/src/**/*.ts",
+              "packs/micro/upgrade/src/**/*.html"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/packs/micro/upgrade"],
+          "options": {
+            "jestConfig": "packs/micro/upgrade/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

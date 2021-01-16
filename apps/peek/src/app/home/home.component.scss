@@ -19,11 +19,15 @@
     }
   }
   #room-form {
+    gap: 12px;
+    display: flex;
     margin: 16px 16px 8px;
+    align-items: center;
+    .mat-form-field {
+      flex: 1;
+    }
   }
-  .mat-form-field {
-    width: 100%;
-  }
+
   .mat-toolbar {
     height: 62px;
     display: flex;
