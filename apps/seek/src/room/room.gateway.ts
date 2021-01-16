@@ -4,15 +4,30 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
+  OnGatewayDisconnect,
 } from '@nestjs/websockets'
 import { PeerAction } from '@peek/core/model'
 import { Server, Socket } from 'socket.io'
 
 @WebSocketGateway()
-export class RoomGateway {
+export class RoomGateway implements OnGatewayDisconnect {
+
   @WebSocketServer()
   server: Server
 
+  @SubscribeMessage('rooms')
+  getRooms(
+    @ConnectedSocket() contact: Socket,
+    @MessageBody() peerContact: string
+  ) {
+    console.log('create or join to room ', peerContact)
+    const { rooms } = this.server.sockets.adapter
+    const peerRoom = rooms[peerContact] ?? { length: 1 }
+    const numPeers = peerRoom.length
+
+    console.log(`${peerContact} has ${numPeers} clients`)
+    contact.broadcast.emit('rooms', rooms)
+  }
   @SubscribeMessage(PeerAction.CreateOrJoin)
   createOrJoin(
     @ConnectedSocket() contact: Socket,
@@ -23,7 +38,7 @@ export class RoomGateway {
     const peerRoom = rooms[peerContact] ?? { length: 1 }
     const numPeers = peerRoom.length
 
-    console.log(peerContact, ' has ', numPeers, ' clients')
+    console.log(`${peerContact} has ${numPeers} clients`)
 
     if (numPeers == 0) {
       contact.join(peerContact)
@@ -72,5 +87,13 @@ export class RoomGateway {
     contact.broadcast
       .to(peerContact.room)
       .emit(PeerAction.Answer, peerContact.sdp)
+  }
+
+  handleDisconnect(@ConnectedSocket() contact: Socket) {
+    console.log('DISCONNCET', contact.id);
+    const { rooms } = this.server.sockets.adapter
+    if (rooms[contact.id]) {
+      contact.leaveAll()
+    }
   }
 }

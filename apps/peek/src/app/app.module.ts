@@ -3,6 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
+import { A11yModule } from '@angular/cdk/a11y'
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { RoomComponent } from './room/room.component'
@@ -22,6 +23,7 @@ import { One2oneComponent } from './one2one/one2one.component'
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent, One2oneComponent],
   imports: [
+    A11yModule,
     CorePeekModule,
     BrowserModule,
     AppRoutingModule,

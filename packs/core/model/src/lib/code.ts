@@ -1,6 +1,7 @@
 export class Code {
-  uid: string[]
-  constructor(code: string) {
-    this.uid = code.split('-')
-  }
+  constructor(
+    public timeLow: string,
+    public timeMid: string,
+    public timeHiAndVersion: string
+  ) {}
 }

@@ -32,7 +32,12 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
       this.contacts.delete(contact.id)
     }
   }
-
+  @SubscribeMessage('offer')
+  offer(client: Socket, payload: Partial<FormData>) {
+    // this.data = { ...this.data, ...payload };
+    // this.logger.log(`offer: ${JSON.stringify(payload)}.`);
+    client.broadcast.emit('offer', payload);
+  }
   @SubscribeMessage('message')
   handleMessage(
     @ConnectedSocket() contact: Socket,

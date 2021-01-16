@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 753.817 753.816">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="mascara" d="M678.435,0H75.382A75.6,75.6,0,0,0,0,75.382V753.816L150.763,603.053H678.435a75.6,75.6,0,0,0,75.382-75.382V75.382A75.6,75.6,0,0,0,678.435,0Z" fill="rgba(255,255,255,0.75)"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_de_máscara_2" data-name="Grupo de máscara 2" clip-path="url(#clip-path)">
+    <g id="cata-vento" transform="translate(-459.464 -542.035)">
+      <path id="sombra" d="M641.762-205.45V212.43H223.881L-194,630.312H223.881v417.881l417.881,417.881V1048.193h417.881l417.881-417.881H1059.643V212.43Z" transform="translate(194 265.148)" opacity="0.2"/>
+      <path id="amarelo-claro" d="M641.762,371.728H-194L223.881-46.153H641.762" transform="translate(194 464.034)" fill="#0288d1"/>
+      <path id="vermelho" d="M177.694,603.762V-232L595.575,185.881V603.762" transform="translate(658.068 232)" fill="#9c27b0"/>
+      <path id="verde-claro" d="M-8.153,139.694V557.575L409.728,975.456V139.694" transform="translate(426.034 696.068)" fill="#03a9f4"/>
+      <path id="azul" d="M177.694,139.694h835.762L595.575,557.575H177.694" transform="translate(658.068 696.068)" fill="#7b1fa2"/>
+      <path id="luz-direita" d="M177.694,139.694l59.7,59.7H953.758l59.7-59.7Z" transform="translate(658.068 696.068)" fill="#fff" opacity="0.2"/>
+      <path id="roxo" d="M177.694,371.728,595.575-46.153V371.728Z" transform="translate(658.068 464.034)" fill="#8e24aa"/>
+      <path id="verde" d="M409.728,139.694-8.153,557.575V139.694Z" transform="translate(426.034 696.068)" fill="#039be5"/>
+      <path id="azul-marinho" d="M595.575,557.575,177.694,139.694V557.575Z" transform="translate(658.068 696.068)" fill="#29b6f6"/>
+      <path id="laranja" d="M-8.153-46.153,409.728,371.728V-46.153Z" transform="translate(426.034 464.034)" fill="#ab47bc"/>
+      <path id="luz-topo" d="M641.762-232v59.7l417.881,417.88v-59.7ZM223.881,185.881-194,603.762h59.7L223.881,245.579H641.762v-59.7Z" transform="translate(194 232)" fill="#fff" opacity="0.2"/>
+      <g id="ponta" transform="translate(596.973 596.973)">
+        <path id="sombra-ponta" d="M310.285,60.045,235.663,224.214,71.5,298.836l164.168,74.622L310.29,537.625l74.622-164.167,164.167-74.622L384.907,224.214Z" transform="translate(-71.496 -0.348)" opacity="0.2"/>
+        <path id="ponta-2" data-name="ponta" d="M310.285,33.5,235.663,197.663,71.5,272.285l164.168,74.622L310.29,511.074l74.622-164.167,164.167-74.622L384.907,197.663Z" transform="translate(-71.496 -33.496)" fill="#fff"/>
+        <path id="ponta-2-2" data-name="ponta-2" d="M71.5,139.694l164.168,74.622L310.29,378.483V139.694Z" transform="translate(-71.496 99.095)" fill="#ebebeb"/>
+        <path id="ponta-3" d="M416.483,139.694,252.316,214.316,177.694,378.483V139.694Z" transform="translate(61.095 99.095)" fill="#dfdfdf"/>
+      </g>
+    </g>
+  </g>
+</svg>

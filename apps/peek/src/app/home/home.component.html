@@ -1,35 +1,73 @@
 <figure class="home">
-  <img src="assets/images/logo-color.svg" alt="" />
+  <img src="assets/images/logo-purple-blue.svg" alt="Peer Contact" />
+  <a mat-flat-button color="primary" routerLink="/one2one"> # Geral </a>
 </figure>
-<form id="room-form" autocomplete="off" [formGroup]="form">
-  <mat-form-field>
-    <mat-label>Nome da sala</mat-label>
-    <input
-      matInput
-      autofocus
-      type="text"
-      name="room-code"
-      placeholder="Exemplo: bg466"
-      formControlName="code"
-      (keyup.enter)="onEnter()"
-    />
-    <mat-hint
-      >Sem espaços ou caracteres especiais, apenas de A-Z e 0-9</mat-hint
-    >
-    <mat-error *ngIf="code.hasError('pattern')"
-      >Nome inválido, não use caracteres especiais</mat-error
-    >
-  </mat-form-field>
-</form>
-<mat-toolbar>
-  <button
-    mat-flat-button
-    color="primary"
-    form="room-form"
-    [disabled]="code.value === ''"
-    (click)="onEnter()"
-  >
-    Criar sala
-  </button>
-  <a mat-flat-button color="primary" routerLink="/one2one"> Sala principal </a>
-</mat-toolbar>
+<mat-tab-group dynamicHeight mat-align-tabs="end">
+  <mat-tab label="Criar">
+    <ng-template matTabContent>
+      <mat-toolbar>
+        <button
+          mat-flat-button
+          color="primary"
+          form="room-form"
+          (click)="onCreate()"
+        >
+          Iniciar conversa
+        </button>
+      </mat-toolbar>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Convidado">
+    <ng-template matTabContent>
+      <form
+        id="room-form"
+        autocomplete="off"
+        [formGroup]="joinForm"
+        (ngSubmit)="onJoin()"
+      >
+        <mat-form-field>
+          <mat-label>Código de convidado</mat-label>
+          <peek-peer-code formControlName="code"></peek-peer-code>
+          <mat-error>Código inválido</mat-error>
+        </mat-form-field>
+      </form>
+      <mat-toolbar>
+        <button
+          mat-flat-button
+          color="primary"
+          form="room-form"
+          [disabled]="joinForm.invalid"
+          (click)="onJoin()"
+        >
+          Entrar na sala
+        </button>
+      </mat-toolbar>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+<!-- <form
+        id="room-form"
+        autocomplete="off"
+        [formGroup]="createForm"
+        (ngSubmit)="onCreate()"
+      >
+        <mat-form-field>
+          <mat-label>Nome da sala</mat-label>
+          <input
+            matInput
+            autofocus
+            type="text"
+            name="room-name"
+            placeholder="Exemplo: bg466"
+            formControlName="name"
+            (keyup.enter)="onCreate()"
+          />
+          <mat-hint>
+            Sem espaços ou caracteres especiais, apenas de A-Z e 0-9
+          </mat-hint>
+          <mat-error *ngIf="code.hasError('pattern')">
+            Nome inválido, não use caracteres especiais
+          </mat-error>
+        </mat-form-field>
+      </form> -->
