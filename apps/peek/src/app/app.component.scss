@@ -4,12 +4,6 @@
   height: 100%;
   font-family: sans-serif;
 
-  .mat-toolbar:first-child {
-    padding-left: 8px;
-    .mat-button-base:first-child {
-      margin-right: 8px;
-    }
-  }
   .peek-container {
     flex: 1;
     display: flex;
@@ -27,6 +21,14 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  .mat-toolbar:first-child {
+    min-height: 56px;
+    padding-left: 8px;
+    .mat-button-base:first-child {
+      margin-right: 8px;
+    }
+  }
   main {
     flex: 1;
     display: flex;

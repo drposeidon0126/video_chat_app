@@ -19,16 +19,16 @@ export class RoomGateway {
     @MessageBody() peerContact: string
   ) {
     console.log('create or join to room ', peerContact)
+    const { rooms } = this.server.sockets.adapter
+    const peerRoom = rooms[peerContact] ?? { length: 1 }
+    const numPeers = peerRoom.length
 
-    var myRoom = this.server.sockets.adapter.rooms[peerContact] || { length: 0 }
-    var numContacts = myRoom.length
+    console.log(peerContact, ' has ', numPeers, ' clients')
 
-    console.log(peerContact, ' has ', numContacts, ' clients')
-
-    if (numContacts == 0) {
+    if (numPeers == 0) {
       contact.join(peerContact)
       contact.emit(PeerAction.Created, peerContact)
-    } else if (numContacts == 1) {
+    } else if (numPeers == 1) {
       contact.join(peerContact)
       contact.emit(PeerAction.Joined, peerContact)
     } else {

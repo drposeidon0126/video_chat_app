@@ -46,6 +46,8 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
     this.remoteVideo = this.remoteVideoRef.nativeElement
 
     const { code } = this._route.snapshot.params
+    console.log(code);
+
     if (code) {
       this._signaling.io.emit(PeerAction.CreateOrJoin, code)
     }

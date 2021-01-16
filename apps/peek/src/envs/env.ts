@@ -8,7 +8,7 @@ export const env = {
   constraints: {
     audio: {
       channelCount: {
-        ideal: 2,
+        ideal: 1,
       },
       echoCancellation: true,
       frameRate: {
