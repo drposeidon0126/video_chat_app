@@ -11,9 +11,11 @@ import { Message } from '@peek/core/model'
 export class CraneGateway {
   @SubscribeMessage('message')
   handleMessage(
-    @ConnectedSocket() contact: Socket,
-    @MessageBody() peerContact: Message
+    @ConnectedSocket() socket: Socket,
+    @MessageBody() message: Message
   ) {
-    contact.broadcast.send(peerContact)
+    console.log(message);
+
+    socket.broadcast.send(message)
   }
 }

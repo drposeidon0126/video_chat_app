@@ -4,10 +4,11 @@ import {
   AfterViewInit,
   ViewChild,
   ChangeDetectorRef,
+  OnInit,
 } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
+import { Message, Signaling, uuid } from '@peek/core/model'
 
-export type Orientation = 'landscape' | 'landscape'
 export type StateButton = 'call' | 'upgrade' | 'hangup'
 
 @Component({
@@ -16,7 +17,7 @@ export type StateButton = 'call' | 'upgrade' | 'hangup'
   styleUrls: ['./micro-upgrade.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MicroUpgradeComponent implements AfterViewInit {
+export class MicroUpgradeComponent implements OnInit, AfterViewInit {
   @ViewChild('localVideo')
   localVideoRef: ElementRef<HTMLVideoElement>
   localVideo: HTMLVideoElement
@@ -52,13 +53,26 @@ export class MicroUpgradeComponent implements AfterViewInit {
   }
 
   startTime = 0
+  sender: string
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private _signaling: Signaling) {
+    this.sender = uuid()
     this.state = {
       call: true,
       upgrade: true,
       hangup: true,
     }
+  }
+
+  ngOnInit(): void {
+    this._signaling.message$.subscribe(
+      ({ sender, description, ...message }) => {
+        // console.log('MESSAGE ',message);
+        if (sender && sender !== this.sender) {
+          console.log('MESSAGE ', description)
+        }
+      }
+    )
   }
 
   ngAfterViewInit(): void {
@@ -165,7 +179,13 @@ export class MicroUpgradeComponent implements AfterViewInit {
     console.log('pc1 setLocalDescription start')
     this.pc1
       .setLocalDescription(desc)
-      .then(() => this.onSetLocalSuccess(this.pc1))
+      .then(() => {
+        this._signaling.send({
+          sender: this.sender,
+          description: this.pc1.localDescription,
+        })
+        this.onSetLocalSuccess(this.pc1)
+      })
       .catch(this.onSetSessionDescriptionError)
 
     console.log('pc2 setRemoteDescription start')
@@ -203,7 +223,7 @@ export class MicroUpgradeComponent implements AfterViewInit {
     this.remoteVideo.srcObject = e.streams[0]
   }
 
-  onCreateAnswerSuccess = (desc) => {
+  onCreateAnswerSuccess = (desc: RTCSessionDescriptionInit) => {
     console.log(`Answer from pc2: ${desc.sdp}`)
     console.log('pc2 setLocalDescription start')
     this.pc2

@@ -97,7 +97,7 @@
           "outputs": ["coverage/apps/peek"],
           "options": {
             "jestConfig": "apps/peek/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": false
           }
         }
       }
@@ -205,7 +205,7 @@
           "outputs": ["coverage/apps/seek"],
           "options": {
             "jestConfig": "apps/seek/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": false
           }
         }
       }
@@ -268,7 +268,7 @@
           "outputs": ["coverage/packs/core/peek"],
           "options": {
             "jestConfig": "packs/core/peek/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": false
           }
         }
       }
@@ -289,7 +289,7 @@
           "outputs": ["coverage/packs/core/usecase"],
           "options": {
             "jestConfig": "packs/core/usecase/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": false
           }
         },
         "build": {
@@ -336,7 +336,7 @@
           "outputs": ["coverage/packs/micro/upgrade"],
           "options": {
             "jestConfig": "packs/micro/upgrade/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": false
           }
         }
       }
@@ -386,7 +386,7 @@
           "outputs": ["coverage/apps/crane"],
           "options": {
             "jestConfig": "apps/crane/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": false
           }
         }
       }

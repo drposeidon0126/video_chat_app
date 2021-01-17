@@ -15,19 +15,6 @@ export class RoomGateway implements OnGatewayDisconnect {
   @WebSocketServer()
   server: Server
 
-  @SubscribeMessage('rooms')
-  getRooms(
-    @ConnectedSocket() contact: Socket,
-    @MessageBody() peerContact: string
-  ) {
-    console.log('create or join to room ', peerContact)
-    const { rooms } = this.server.sockets.adapter
-    const peerRoom = rooms[peerContact] ?? { length: 1 }
-    const numPeers = peerRoom.length
-
-    console.log(`${peerContact} has ${numPeers} clients`)
-    contact.broadcast.emit('rooms', rooms)
-  }
   @SubscribeMessage(PeerAction.CreateOrJoin)
   createOrJoin(
     @ConnectedSocket() contact: Socket,
@@ -35,9 +22,8 @@ export class RoomGateway implements OnGatewayDisconnect {
   ) {
     console.log('create or join to room ', peerContact)
     const { rooms } = this.server.sockets.adapter
-    const peerRoom = rooms[peerContact] ?? { length: 1 }
+    const peerRoom = rooms[peerContact] ?? { length: 0 }
     const numPeers = peerRoom.length
-
     console.log(`${peerContact} has ${numPeers} clients`)
 
     if (numPeers == 0) {
@@ -45,6 +31,8 @@ export class RoomGateway implements OnGatewayDisconnect {
       contact.emit(PeerAction.Created, peerContact)
     } else if (numPeers == 1) {
       contact.join(peerContact)
+      console.log('join: ', peerContact);
+
       contact.emit(PeerAction.Joined, peerContact)
     } else {
       contact.emit(PeerAction.Full, peerContact)
@@ -87,6 +75,21 @@ export class RoomGateway implements OnGatewayDisconnect {
     contact.broadcast
       .to(peerContact.room)
       .emit(PeerAction.Answer, peerContact.sdp)
+  }
+
+
+  @SubscribeMessage('rooms')
+  getRooms(
+    @ConnectedSocket() contact: Socket,
+    @MessageBody() peerContact: string
+  ) {
+    console.log('create or join to room ', peerContact)
+    const { rooms } = this.server.sockets.adapter
+    const peerRoom = rooms[peerContact] ?? { length: 0 }
+    const numPeers = peerRoom.length
+
+    console.log(`${peerContact} has ${numPeers} clients`)
+    contact.broadcast.emit('rooms', rooms)
   }
 
   handleDisconnect(@ConnectedSocket() contact: Socket) {
