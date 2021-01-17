@@ -6,5 +6,6 @@ module.exports = {
     '<rootDir>/packs/core/peek',
     '<rootDir>/packs/core/usecase',
     '<rootDir>/packs/micro/upgrade',
+    '<rootDir>/apps/crane',
   ],
 }
