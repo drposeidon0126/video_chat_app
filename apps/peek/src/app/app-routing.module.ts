@@ -8,13 +8,14 @@ import { One2oneComponent } from './one2one/one2one.component'
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      [
-        { path: '', pathMatch: 'full', redirectTo: 'home' },
-        { path: 'home', component: HomeComponent },
-        { path: 'one2one', component: One2oneComponent },
-        { path: 'room/:code', component: RoomComponent },
-        ...microUpgradeRoutes,
-      ],
+      microUpgradeRoutes,
+      // [
+      //   { path: '', pathMatch: 'full', redirectTo: 'home' },
+      //   { path: 'home', component: HomeComponent },
+      //   { path: 'one2one', component: One2oneComponent },
+      //   { path: 'room/:code', component: RoomComponent },
+      //   ...microUpgradeRoutes,
+      // ],
       {
         useHash: true,
         initialNavigation: 'enabled',

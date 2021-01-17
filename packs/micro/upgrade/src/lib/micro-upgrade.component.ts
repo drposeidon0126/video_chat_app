@@ -1,34 +1,22 @@
-import { MatButton } from '@angular/material/button'
 import {
   Component,
   ElementRef,
   AfterViewInit,
   ViewChild,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
+
+export type Orientation = 'landscape' | 'landscape'
+export type StateButton = 'call' | 'upgrade' | 'hangup'
 
 @Component({
   selector: 'peek-micro-upgrade',
   templateUrl: './micro-upgrade.component.html',
   styleUrls: ['./micro-upgrade.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MicroUpgradeComponent implements AfterViewInit {
-  startTime = 0
-
-  @ViewChild('startButton')
-  startButton: MatButton
-
-  @ViewChild('callButton')
-  callButton: MatButton
-
-  @ViewChild('upgradeButton')
-  upgradeButton: MatButton
-
-  @ViewChild('hangupButton')
-  hangupButton: MatButton
-
   @ViewChild('localVideo')
   localVideoRef: ElementRef<HTMLVideoElement>
   localVideo: HTMLVideoElement
@@ -36,6 +24,23 @@ export class MicroUpgradeComponent implements AfterViewInit {
   @ViewChild('remoteVideo')
   remoteVideoRef: ElementRef<HTMLVideoElement>
   remoteVideo: HTMLVideoElement
+
+  private _crop = new BehaviorSubject<boolean>(false)
+  crop = this._crop.asObservable()
+
+  private _audio = new BehaviorSubject<boolean>(true)
+  audio = this._audio.asObservable()
+
+  private _video = new BehaviorSubject<boolean>(false)
+  video = this._video.asObservable()
+
+  private _state: Partial<Record<StateButton, boolean>>
+  public get state(): Partial<Record<StateButton, boolean>> {
+    return this._state
+  }
+  public set state(value: Partial<Record<StateButton, boolean>>) {
+    this._state = { ...this._state, ...value }
+  }
 
   localStream: MediaStream
   pc1: RTCPeerConnection
@@ -46,14 +51,17 @@ export class MicroUpgradeComponent implements AfterViewInit {
     offerToReceiveVideo: false,
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  startTime = 0
+
+  constructor(private cdr: ChangeDetectorRef) {
+    this.state = {
+      call: true,
+      upgrade: true,
+      hangup: true,
+    }
+  }
 
   ngAfterViewInit(): void {
-    this.callButton.disabled = true
-    this.upgradeButton.disabled = true
-    this.hangupButton.disabled = true
-    this.cdr.detectChanges()
-
     this.localVideo = this.localVideoRef.nativeElement
     this.remoteVideo = this.remoteVideoRef.nativeElement
     this.remoteVideo.onresize = () => {
@@ -70,6 +78,17 @@ export class MicroUpgradeComponent implements AfterViewInit {
         this.startTime = null
       }
     }
+    this.start()
+  }
+
+  toggleCrop() {
+    this._crop.next(!this._crop.getValue())
+  }
+  toggleAudio() {
+    this._audio.next(!this._audio.getValue())
+  }
+  toggleVideo() {
+    this._video.next(!this._video.getValue())
   }
 
   getName(pc: RTCPeerConnection) {
@@ -79,36 +98,30 @@ export class MicroUpgradeComponent implements AfterViewInit {
   getOtherPc(pc: RTCPeerConnection) {
     return pc === this.pc1 ? this.pc2 : this.pc1
   }
-  gotStream(stream) {
+  gotStream(stream: MediaStream) {
     console.log('Received local stream')
     this.localVideo.srcObject = stream
     this.localStream = stream
-    this.callButton.disabled = false
-    this.cdr.detectChanges()
+    this.state = { call: false }
   }
 
   async start() {
-    console.log('Requesting local stream')
-    this.startButton.disabled = true
-    this.cdr.detectChanges()
-
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: false,
-      })
-      console.log(stream)
-      this.gotStream(stream)
+      await navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => this.gotStream(stream))
+        .then(() => (this.state = { call: false }))
     } catch (e) {
-      alert(`getUserMedia() error: ${e.name}`)
+      console.log(`getUserMedia() error: ${e.name}`)
     }
   }
 
   call() {
-    this.callButton.disabled = true
-    this.upgradeButton.disabled = false
-    this.hangupButton.disabled = false
-    this.cdr.detectChanges()
+    this.state = {
+      call: true,
+      upgrade: false,
+      hangup: false,
+    }
 
     console.log('Starting call')
     this.startTime = window.performance.now()
@@ -143,11 +156,11 @@ export class MicroUpgradeComponent implements AfterViewInit {
       .catch(this.onCreateSessionDescriptionError)
   }
 
-  onCreateSessionDescriptionError(error) {
+  onCreateSessionDescriptionError(error: Error) {
     console.log(`Failed to create session description: ${error.toString()}`)
   }
 
-  onCreateOfferSuccess = (desc) => {
+  onCreateOfferSuccess = (desc: RTCSessionDescriptionInit) => {
     console.log(`Offer from pc1\n${desc.sdp}`)
     console.log('pc1 setLocalDescription start')
     this.pc1
@@ -170,19 +183,19 @@ export class MicroUpgradeComponent implements AfterViewInit {
       .catch(this.onCreateSessionDescriptionError)
   }
 
-  onSetLocalSuccess(pc) {
+  onSetLocalSuccess(pc: RTCPeerConnection) {
     console.log(`${this.getName(pc)} setLocalDescription complete`)
   }
 
-  onSetRemoteSuccess(pc) {
+  onSetRemoteSuccess(pc: RTCPeerConnection) {
     console.log(`${this.getName(pc)} setRemoteDescription complete`)
   }
 
-  onSetSessionDescriptionError(error) {
+  onSetSessionDescriptionError(error: Error) {
     console.log(`Failed to set session description: ${error.toString()}`)
   }
 
-  gotRemoteStream = (e) => {
+  gotRemoteStream = (e: RTCTrackEvent) => {
     console.log('gotRemoteStream', e.track, e.streams[0])
 
     // reset srcObject to work around minor bugs in Chrome and Edge.
@@ -209,7 +222,7 @@ export class MicroUpgradeComponent implements AfterViewInit {
       )
   }
 
-  onIceCandidate(pc, event) {
+  onIceCandidate(pc: RTCPeerConnection, event: RTCPeerConnectionIceEvent) {
     this.getOtherPc(pc)
       .addIceCandidate(event.candidate)
       .then(
@@ -224,17 +237,17 @@ export class MicroUpgradeComponent implements AfterViewInit {
     )
   }
 
-  onAddIceCandidateSuccess(pc) {
+  onAddIceCandidateSuccess(pc: RTCPeerConnection) {
     console.log(`${this.getName(pc)} addIceCandidate success`)
   }
 
-  onAddIceCandidateError(pc, error) {
+  onAddIceCandidateError(pc: RTCPeerConnection, error: Error) {
     console.log(
       `${this.getName(pc)} failed to add ICE Candidate: ${error.toString()}`
     )
   }
 
-  onIceStateChange(pc, event) {
+  onIceStateChange(pc: RTCPeerConnection, event: Event) {
     if (pc) {
       console.log(`${this.getName(pc)} ICE state: ${pc.iceConnectionState}`)
       console.log('ICE state change event: ', event)
@@ -242,7 +255,8 @@ export class MicroUpgradeComponent implements AfterViewInit {
   }
 
   upgrade() {
-    this.upgradeButton.disabled = true
+    this.state = { upgrade: true }
+
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
@@ -284,7 +298,6 @@ export class MicroUpgradeComponent implements AfterViewInit {
     this.localVideo.srcObject = null
     this.localVideo.srcObject = this.localStream
 
-    this.hangupButton.disabled = true
-    this.callButton.disabled = false
+    this.state = { hangup: true, call: false }
   }
 }

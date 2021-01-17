@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing'
+import { TestBed, waitForAsync } from '@angular/core/testing'
 import { MicroUpgradeModule } from './micro-upgrade.module'
 
 describe('MicroUpgradeModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MicroUpgradeModule],
     }).compileComponents()
