@@ -23,4 +23,6 @@ export enum PeerAction {
   Candidate = 'candidate',
   Offer = 'offer',
   Answer = 'answer',
+  Audio = 'audio',
+  Video = 'video',
 }

@@ -19,7 +19,8 @@
       "@peek/shared/assets": ["packs/shared/assets/src/index.ts"],
       "@peek/core/peek": ["packs/core/peek/src/index.ts"],
       "@peek/core/usecase": ["packs/core/usecase/src/index.ts"],
-      "@peek/micro/upgrade": ["packs/micro/upgrade/src/index.ts"]
+      "@peek/micro/negotiate": ["packs/micro/negotiate/src/index.ts"],
+      "@peek/core/adapter": ["packs/core/adapter/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

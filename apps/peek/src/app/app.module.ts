@@ -1,3 +1,4 @@
+import { WebSocketConfig, WebSocketFacade, WebSocketFactory } from '@peek/core/adapter'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
@@ -9,7 +10,7 @@ import { AppComponent } from './app.component'
 import { RoomComponent } from './room/room.component'
 import { HomeComponent } from './home/home.component'
 import { ServiceWorkerModule } from '@angular/service-worker'
-import { PeekMaterialModule, CorePeekModule } from '@peek/core/peek'
+import { PeekMaterialModule, CorePeekModule, SOCKET_CONFIG_TOKEN } from '@peek/core/peek'
 import { Signaling, Media } from '@peek/core/model'
 import {
   MediaFactory,
@@ -51,6 +52,12 @@ import { One2oneComponent } from './one2one/one2one.component'
       provide: Media,
       useFactory: MediaFactory,
       deps: [MEDIA_CONSTRAINTS],
+    },
+    { provide: SOCKET_CONFIG_TOKEN, useValue: env.webSocket ?? {} },
+    {
+      provide: WebSocketFacade,
+      useFactory: WebSocketFactory,
+      deps: [SOCKET_CONFIG_TOKEN],
     },
   ],
   bootstrap: [AppComponent],

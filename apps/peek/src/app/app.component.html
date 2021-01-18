@@ -10,10 +10,11 @@
       <button type="button" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
+      <h1 role="logo">{{ title }}</h1>
+      <span class="space"></span>
       <a mat-icon-button routerLink="/">
         <mat-icon color="accent">home</mat-icon>
       </a>
-      <h1 role="logo">Welcome to {{ title }}!</h1>
     </mat-toolbar>
 
     <main role="contentinfo">

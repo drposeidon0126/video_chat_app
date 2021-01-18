@@ -1,6 +1,10 @@
 export const env = {
   prod: true,
   seek: 'https://seek.peek.contact',
+  webSocket: {
+    url: 'https://seek.peek.contact',
+    options: {},
+  },
   constraints: {
     audio: {
       channelCount: {

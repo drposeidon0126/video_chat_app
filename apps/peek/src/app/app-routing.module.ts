@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { HomeComponent } from './home/home.component'
 import { RoomComponent } from './room/room.component'
-import { microUpgradeRoutes } from '@peek/micro/upgrade'
 import { One2oneComponent } from './one2one/one2one.component'
+import { microNegotiateRoutes } from '@peek/micro/negotiate'
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      microUpgradeRoutes,
+      microNegotiateRoutes,
       // [
       //   { path: '', pathMatch: 'full', redirectTo: 'home' },
       //   { path: 'home', component: HomeComponent },

@@ -5,6 +5,10 @@
 export const env = {
   prod: false,
   seek: 'http://localhost:3000',
+  webSocket: {
+    url: 'http://localhost:3000',
+    options: {},
+  },
   constraints: {
     audio: {
       channelCount: {

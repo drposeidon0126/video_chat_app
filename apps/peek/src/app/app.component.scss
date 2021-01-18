@@ -22,6 +22,11 @@
   display: flex;
   flex-direction: column;
 
+  background: url('/assets/images/logo-purple-blue.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 120px;
+
   .mat-toolbar:first-child {
     min-height: 56px;
     padding-left: 8px;

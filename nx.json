@@ -53,10 +53,13 @@
     "core-usecase": {
       "tags": []
     },
-    "micro-upgrade": {
+    "crane": {
       "tags": []
     },
-    "crane": {
+    "micro-negotiate": {
+      "tags": []
+    },
+    "core-adapter": {
       "tags": []
     }
   }

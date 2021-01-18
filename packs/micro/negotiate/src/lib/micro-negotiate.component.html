@@ -1,0 +1,41 @@
+<section [ngClass]="{ crop: crop | async }">
+  <button class="crop-button" mat-icon-button (click)="toggleCrop()">
+    <mat-icon>crop</mat-icon>
+  </button>
+  <video #localVideo id="localVideo" playsinline autoplay muted></video>
+  <video #remoteVideo id="remoteVideo" playsinline autoplay></video>
+</section>
+<mat-toolbar>
+  <button
+    mat-stroked-button
+    [disabled]="(state | async) == 'stable'"
+    color="accent"
+    (click)="initCall()"
+  >
+    Ligar
+  </button>
+  <div>
+    <button
+      mat-icon-button
+      [disabled]="(state | async) == 'closed'"
+      (click)="toggleVideo()"
+    >
+      <mat-icon>{{ (video | async) ? 'videocam' : 'videocam_off' }}</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      [disabled]="(state | async) == 'closed'"
+      (click)="toggleAudio()"
+    >
+      <mat-icon> {{ (audio | async) ? 'mic' : 'mic_off' }} </mat-icon>
+    </button>
+  </div>
+  <button
+    mat-stroked-button
+    [disabled]="(state | async) != 'stable'"
+    color="warn"
+    (click)="hangup()"
+  >
+    Desligar
+  </button>
+</mat-toolbar>
