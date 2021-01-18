@@ -1,24 +1,14 @@
-<mat-drawer-container class="peek-container" [hasBackdrop]="true" autosize>
-  <mat-drawer #drawer class="peek-sidenav" mode="over" role="navigation">
-    <mat-nav-list dense>
-      <a mat-list-item routerLink="/upgrade"> Upgrade </a>
-    </mat-nav-list>
-  </mat-drawer>
-
-  <div class="peek-content">
-    <mat-toolbar role="banner">
-      <button type="button" mat-icon-button (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <h1 role="logo">{{ title }}</h1>
-      <span class="space"></span>
-      <a mat-icon-button routerLink="/">
-        <mat-icon color="accent">home</mat-icon>
-      </a>
-    </mat-toolbar>
-
-    <main role="contentinfo">
-      <router-outlet></router-outlet>
-    </main>
-  </div>
-</mat-drawer-container>
+<mat-toolbar role="banner" class="peek-top-bar">
+  <a mat-icon-button routerLink="/">
+    <mat-icon color="accent">home</mat-icon>
+  </a>
+  <span class="space"></span>
+  <h1 role="logo" class="example-app-name">{{ title }}</h1>
+</mat-toolbar>
+<main
+  role="contentinfo"
+  class="peek-container"
+  [@routeAnimations]="prepareRoute(outlet)"
+>
+  <router-outlet #outlet="outlet"></router-outlet>
+</main>

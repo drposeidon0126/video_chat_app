@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-
+@import 'app/app-theme';
 @include mat-core();
 
 $peek-base-typography: mat-typography-config(
@@ -29,7 +29,7 @@ $peek-theme: mat-dark-theme(
   )
 );
 @include angular-material-theme($peek-theme);
-
+@include app-theme($peek-theme);
 /* You can add global styles to this file, and also import other style files */
 
 html,
@@ -59,4 +59,11 @@ h6 {
 }
 .space {
   flex: 1 1 auto;
+}
+.mat-grid-list .mat-button-base {
+  padding: 12px 24px;
+  border-radius: 8%;
+}
+body .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.6);
 }

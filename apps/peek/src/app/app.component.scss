@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  font-family: sans-serif;
 
   .peek-container {
     flex: 1;
@@ -17,26 +16,35 @@
   }
 }
 
-.peek-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  background: url('/assets/images/logo-purple-blue.svg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 120px;
-
-  .mat-toolbar:first-child {
-    min-height: 56px;
-    padding-left: 8px;
-    .mat-button-base:first-child {
-      margin-right: 8px;
-    }
-  }
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+.peek-sidenav .mat-icon {
+  margin-right: 8px;
 }
+
+// .peek-content {
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+
+//   // background: url('/assets/images/logo-purple-blue.svg');
+//   // background-position: center center;
+//   // background-repeat: no-repeat;
+//   // background-size: 120px;
+
+//   .mat-toolbar {
+//     min-height: 56px;
+//     padding-left: 8px;
+//     .mat-button-base:first-child {
+//       margin-right: 8px;
+//     }
+//   }
+//   .is-mobile .mat-toolbar {
+//     position: fixed;
+//     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+//     z-index: 2;
+//   }
+//   main {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//   }
+// }

@@ -1,12 +1,13 @@
+import { env } from './../../envs/env'
+import { Router } from '@angular/router'
 import { WebSocketFacade } from '@peek/core/adapter'
-import { uuid, WithTarget } from '@peek/core/model'
+import { PeerAction, uuid, WithTarget } from '@peek/core/model'
 import {
   Component,
   OnDestroy,
-  AfterViewInit,
-  Input,
   ViewChild,
   ElementRef,
+  AfterViewInit,
 } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 
@@ -14,18 +15,18 @@ export type WebRTCPeerConnection = RTCPeerConnection & {
   addStream: (stream: MediaStream) => {}
   onremovestream: Function
 }
-export const rtcConfiguration: RTCConfiguration = {
+export const configuration: RTCConfiguration = {
   iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
 }
 const stringify = (obj: object) => JSON.stringify(obj)
 const toJSON = (str: string) => JSON.parse(str)
 
 @Component({
-  selector: 'micro-negotiate',
-  templateUrl: './micro-negotiate.component.html',
-  styleUrls: ['./micro-negotiate.component.scss'],
+  selector: 'peek-meet',
+  templateUrl: './meet.component.html',
+  styleUrls: ['./meet.component.scss'],
 })
-export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
+export class MeetComponent implements AfterViewInit, OnDestroy {
   @ViewChild('localVideo')
   localVideoRef: ElementRef<HTMLVideoElement>
   localVideo: HTMLVideoElement
@@ -52,7 +53,7 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
 
   sender = uuid()
 
-  constructor(private socket: WebSocketFacade) {}
+  constructor(private _router: Router, private socket: WebSocketFacade) {}
 
   ngAfterViewInit(): void {
     this.localVideo = this.localVideoRef.nativeElement
@@ -62,12 +63,12 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
   }
 
   initCall() {
-    this.socket.on('offer', this.readMessage.bind(this))
+    this.socket.on(PeerAction.Offer, this.readMessage.bind(this))
 
     try {
-      this.pc = this.createConnection(rtcConfiguration)
+      this.pc = this.createConnection(configuration)
     } catch (error) {
-      this.pc = this.createConnection(rtcConfiguration)
+      this.pc = this.createConnection(configuration)
     }
 
     this.pc.onsignalingstatechange = ({
@@ -77,16 +78,10 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
       this._state.next(target.signalingState)
     }
 
-    this.pc.onicecandidate = (evt) => {
-      evt.candidate
-        ? this.sendMessage(this.sender, stringify({ ice: evt.candidate }))
-        : console.log('1. Sent All Ice')
-    }
-
     this.pc.onicecandidate = ({ candidate }) => {
       candidate
         ? this.sendMessage(this.sender, stringify({ ice: candidate }))
-        : console.log('2. Sent All Ice')
+        : console.log('1. Sent All Ice')
     }
 
     this.pc.onremovestream = () => {
@@ -103,7 +98,7 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
   }
 
   sendMessage(sender: string, message: any) {
-    this.socket.emit('offer', { sender, message })
+    this.socket.emit(PeerAction.Offer, { sender, message })
   }
 
   readMessage({ message, sender }: any) {
@@ -113,17 +108,19 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
       if (sender !== this.sender) {
         if (ice !== undefined && this.pc !== null) {
           this.pc.addIceCandidate(new RTCIceCandidate(ice))
-        } else if (sdp.type === 'offer') {
-          this.pc
-            .setRemoteDescription(new RTCSessionDescription(sdp))
-            .then(() => this.pc.createAnswer())
-            .then((a) => this.pc.setLocalDescription(a))
-            .then(() => {
-              const message = { sdp: this.pc.localDescription }
-              this.sendMessage(this.sender, stringify(message))
-            })
-        } else if (sdp.type === 'answer') {
-          this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
+        } else if (sdp && sdp.type === PeerAction.Offer) {
+          this.pc &&
+            this.pc
+              .setRemoteDescription(new RTCSessionDescription(sdp))
+              .then(() => this.pc.createAnswer())
+              .then((a) => this.pc.setLocalDescription(a))
+              .then(() => {
+                const message = { sdp: this.pc.localDescription }
+                this.sendMessage(this.sender, stringify(message))
+              })
+        } else if (sdp && sdp.type === 'answer') {
+          this.pc &&
+            this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
         }
       }
     } catch (error) {
@@ -135,7 +132,7 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
     this._crop.next(!this._crop.getValue())
   }
 
-    toggleAudio() {
+  toggleAudio() {
     const enabled = !this._audio.getValue()
     const tracks = this.localStream.getAudioTracks()
     tracks.forEach((t) => (t.enabled = enabled))
@@ -150,15 +147,13 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
   }
 
   setLocalStream() {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then((stream) => {
-        this.pc.addStream(stream)
-        this.localStream = stream
-        this.localVideo.srcObject = null
-        this.localVideo.srcObject = stream
-        this.setRemoteStream()
-      })
+    navigator.mediaDevices.getUserMedia(env.constraints).then((stream) => {
+      this.pc.addStream(stream)
+      this.localStream = stream
+      this.localVideo.srcObject = null
+      this.localVideo.srcObject = stream
+      this.setRemoteStream()
+    })
   }
 
   setRemoteStream() {
@@ -186,12 +181,14 @@ export class MicroNegotiateComponent implements AfterViewInit, OnDestroy {
     this.stop()
     this.pc.close()
     this._state.next('closed')
+    this._router.navigateByUrl('/')
   }
 
   ngOnDestroy(): void {
     this.stop()
     if (this.pc) {
       this.pc.close()
+      this.pc = null
     }
   }
 }

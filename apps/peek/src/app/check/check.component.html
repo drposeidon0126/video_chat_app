@@ -1,0 +1,10 @@
+<div>
+  <mat-progress-bar mode="determinate" [value]="value"> </mat-progress-bar>
+  <div class="mat-hint">{{ value }}</div>
+  <button type="button" mat-icon-button [disabled]="checking" (click)="start()">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+  <button type="button" mat-icon-button [disabled]="!checking" (click)="stop()">
+    <mat-icon>pause</mat-icon>
+  </button>
+</div>

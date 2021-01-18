@@ -19,10 +19,12 @@ import {
   SIGNALING_CLIENT,
 } from '@peek/core/peek'
 import { env } from '../envs/env';
-import { One2oneComponent } from './one2one/one2one.component'
+import { One2oneComponent } from './one2one/one2one.component';
+import { MeetComponent } from './meet/meet.component';
+import { CheckComponent } from './check/check.component'
 
 @NgModule({
-  declarations: [AppComponent, RoomComponent, HomeComponent, One2oneComponent],
+  declarations: [AppComponent, RoomComponent, HomeComponent, One2oneComponent, MeetComponent, CheckComponent],
   imports: [
     A11yModule,
     CorePeekModule,

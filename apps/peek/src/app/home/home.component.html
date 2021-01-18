@@ -1,73 +1,9 @@
-<figure class="home">
-  <img src="assets/images/logo-purple-blue.svg" alt="Peer Contact" />
-  <a mat-flat-button color="primary" routerLink="/one2one"> # Geral </a>
-</figure>
-<mat-tab-group dynamicHeight mat-align-tabs="end">
-  <mat-tab label="Criar">
-    <ng-template matTabContent>
-      <!-- <mat-toolbar>
-        <button
-          mat-flat-button
-          color="primary"
-          form="room-form"
-          (click)="onCreate()"
-        >
-          Iniciar conversa
-        </button>
-      </mat-toolbar> -->
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Convidado">
-    <ng-template matTabContent>
-      <form
-        id="room-form"
-        autocomplete="off"
-        [formGroup]="joinForm"
-        (ngSubmit)="onJoin()"
-      >
-        <mat-form-field>
-          <mat-label>Código de convidado</mat-label>
-          <peek-peer-code formControlName="code"></peek-peer-code>
-          <mat-error>Código inválido</mat-error>
-        </mat-form-field>
-        <button
-          mat-stroked-button
-          color="primary"
-          form="room-form"
-          [disabled]="joinForm.invalid"
-          (click)="onJoin()"
-        >
-          Entrar na sala
-        </button>
-      </form>
-      <!-- <mat-toolbar> -->
-      <!-- </mat-toolbar> -->
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+<section>
+  <a mat-stroked-button color="accent" routerLink="/meet"> ENTRAR </a>
+</section>
 
-<!-- <form
-        id="room-form"
-        autocomplete="off"
-        [formGroup]="createForm"
-        (ngSubmit)="onCreate()"
-      >
-        <mat-form-field>
-          <mat-label>Nome da sala</mat-label>
-          <input
-            matInput
-            autofocus
-            type="text"
-            name="room-name"
-            placeholder="Exemplo: bg466"
-            formControlName="name"
-            (keyup.enter)="onCreate()"
-          />
-          <mat-hint>
-            Sem espaços ou caracteres especiais, apenas de A-Z e 0-9
-          </mat-hint>
-          <mat-error *ngIf="code.hasError('pattern')">
-            Nome inválido, não use caracteres especiais
-          </mat-error>
-        </mat-form-field>
-      </form> -->
+<mat-toolbar role="nav" class="peek-bottom-bar">
+  <a mat-icon-button *ngFor="let page of pages" [routerLink]="page.route">
+    <mat-icon>{{ page.icon }}</mat-icon>
+  </a>
+</mat-toolbar>

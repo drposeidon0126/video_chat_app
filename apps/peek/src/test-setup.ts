@@ -1,11 +1,13 @@
 import 'jest-preset-angular';
 
-Object.defineProperty(navigator, 'mediaDevices', {
+Object.defineProperty(window, 'AudioContext', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
-    getUserMedia: jest.fn() as jest.Mock<MediaStream>
-  }))
+    createScriptProcessor: jest.fn(),
+    createMediaStreamSource: jest.fn(),
+  })),
 })
+
 Object.defineProperty(window, 'RTCPeerConnection', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -18,6 +20,13 @@ Object.defineProperty(window, 'RTCPeerConnection', {
     dispatchEvent: jest.fn(),
   })),
 })
+
+const mockMediaDevices = {
+  getUserMedia: jest.fn().mockImplementation((q) => {
+    return new Promise(() => {})
+  }),
+}
+;(window as any).navigator.mediaDevices = mockMediaDevices
 
 const mockGetUserMedia = {
   getUserMedia: jest.fn().mockResolvedValue({} as MediaStream),

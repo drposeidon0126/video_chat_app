@@ -2,40 +2,16 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  .home {
+  section {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    padding: 64px 64px 0;
-    img {
-      opacity: 0.78;
-      height: 120px;
-      max-height: calc(100vh - 300px);
-      -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  .peek-bottom-bar {
+    justify-content: space-around;
+    .mat-icon {
+      margin-right: 8px;
     }
   }
-  #room-form {
-    gap: 12px;
-    display: flex;
-    margin: 16px 16px 8px;
-    align-items: center;
-    .mat-form-field {
-      flex: 1;
-    }
-  }
-
-  .mat-toolbar {
-    height: 62px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    .mat-button-base {
-      flex: 1;
-    }
-  }
-
 }
