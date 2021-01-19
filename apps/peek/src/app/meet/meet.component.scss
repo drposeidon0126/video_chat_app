@@ -37,6 +37,7 @@
 
   video#localVideo {
     width: 25%;
+    border-radius: 6px;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -47,16 +48,13 @@
 
   @media screen and (max-width: 400px) {
     button {
-      width: 83px;
+      // width: 83px;
       margin: 0 11px 10px 0;
     }
 
-    video {
-      height: 90px;
-      margin: 0 0 10px 0;
-      width: calc(50% - 7px);
-    }
     video#localVideo {
+      height: 90px;
+      width: calc(50% - 7px);
       margin: 0 10px 20px 0;
     }
   }

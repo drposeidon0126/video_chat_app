@@ -7,12 +7,12 @@
 </section>
 <mat-toolbar>
   <button
-    mat-stroked-button
-    [disabled]="(state | async) == 'stable'"
+    mat-icon-button
     color="accent"
+    [disabled]="(state | async) == 'stable'"
     (click)="initCall()"
   >
-    Ligar
+    <mat-icon>call</mat-icon>
   </button>
   <div>
     <button
@@ -29,13 +29,22 @@
     >
       <mat-icon> {{ (audio | async) ? 'mic' : 'mic_off' }} </mat-icon>
     </button>
+    <button
+      mat-icon-button
+      [disabled]="(state | async) == 'closed'"
+      (click)="shareScreen()"
+    >
+      <mat-icon>
+        {{ (screen | async) ? 'screen_share' : 'stop_screen_share' }}
+      </mat-icon>
+    </button>
   </div>
   <button
-    mat-stroked-button
-    [disabled]="(state | async) != 'stable'"
     color="warn"
+    mat-icon-button
+    [disabled]="(state | async) != 'stable'"
     (click)="hangup()"
   >
-    Desligar
+    <mat-icon>call_end</mat-icon>
   </button>
 </mat-toolbar>

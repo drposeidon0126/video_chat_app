@@ -44,6 +44,9 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   private _video = new BehaviorSubject<boolean>(true)
   video = this._video.asObservable()
 
+  private _screen = new BehaviorSubject<boolean>(true)
+  screen = this._screen.asObservable()
+
   private _state = new BehaviorSubject<RTCSignalingState>('closed')
   state = this._state.asObservable()
 
@@ -146,6 +149,42 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
     this._video.next(enabled)
   }
 
+  toggleScreen() {
+    const enabled = !this._video.getValue()
+    const tracks = this.localStream.getVideoTracks()
+    tracks.forEach((t) => (t.enabled = enabled))
+    this._screen.next(enabled)
+  }
+
+  shareScreen() {
+    const tracks = this.localStream.getAudioTracks()
+    tracks.forEach(t => t.stop())
+
+    this.getDisplayMedia().then((stream) => {
+      this.pc.addStream(stream)
+      this.localStream = stream
+      this.localVideo.srcObject = null
+      this.localVideo.srcObject = stream
+      this.localVideo.muted = true
+      this.setRemoteStream()
+    })
+
+  }
+
+  getDisplayMedia(): Promise<MediaStream> {
+    const configuration = { video: true }
+    const mediaDevices = navigator.mediaDevices
+    if ('getDisplayMedia' in navigator) {
+      return (navigator as any).getDisplayMedia(configuration)
+    } else if ('getDisplayMedia' in mediaDevices) {
+      return (mediaDevices as any).getDisplayMedia(configuration)
+    } else {
+      return mediaDevices.getUserMedia({
+        video: { mediaSourcee: 'screen' },
+      } as MediaStreamConstraints)
+    }
+  }
+
   setLocalStream() {
     navigator.mediaDevices.getUserMedia(env.constraints).then((stream) => {
       this.pc.addStream(stream)
@@ -164,7 +203,9 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
         .then(() => {
           const message = { sdp: this.pc.localDescription }
           this.sendMessage(this.sender, stringify(message))
-          this.remoteVideo.muted = true
+          this.localVideo.muted = true
+          console.log(this.pc.localDescription.sdp);
+
         })
     } catch (error) {
       this.initCall()
