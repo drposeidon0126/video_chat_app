@@ -5,6 +5,9 @@ export const env = {
     url: 'https://seek.peek.contact',
     options: {},
   },
+  configuration: {
+    iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
+  },
   constraints: {
     audio: {
       channelCount: {

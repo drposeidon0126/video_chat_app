@@ -9,6 +9,9 @@ export const env = {
     url: 'http://localhost:3000',
     options: {},
   },
+  configuration: {
+    iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
+  },
   constraints: {
     audio: {
       channelCount: {

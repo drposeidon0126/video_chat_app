@@ -1,5 +1,7 @@
 export * from './lib/request-permission'
 export * from './lib/pick-contacts'
+export * from './lib/create-peer'
+export * from './lib/create-peek'
 export * from './lib/make-offer'
 export * from './lib/usecase'
 export * from './lib/mapper'

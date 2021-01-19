@@ -1,9 +1,9 @@
 <section>
-  <a mat-stroked-button color="accent" routerLink="/meet"> ENTRAR </a>
+  <a mat-stroked-button color="accent" routerLink="/meet"> Meet </a>
 </section>
 
 <mat-toolbar role="nav" class="peek-bottom-bar">
-  <a mat-icon-button *ngFor="let page of pages" [routerLink]="page.route">
-    <mat-icon>{{ page.icon }}</mat-icon>
+  <a mat-icon-button routerLink="/check">
+    <mat-icon>settings_voice</mat-icon>
   </a>
 </mat-toolbar>

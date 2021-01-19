@@ -6,10 +6,9 @@ export interface PageInfo {
   route: string | string[]
 }
 
-export type Page = 'home' | 'check' | 'room'
+export type Page = 'home' | 'check'
 
 export const navigation: Record<Page, PageInfo> = {
   home: { icon: 'house', title: 'home', route: '/home' },
   check: { icon: 'settings_voice', title: 'check', route: '/check' },
-  room: { icon: 'meeting_room', title: 'room', route: '/room/' + peerCode() },
 }

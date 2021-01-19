@@ -1,15 +1,17 @@
-import { UseCase } from "./usecase"
-
-class OfferParam {
-  constructor(public pc: RTCPeerConnection, public opt: RTCOfferOptions) {}
-}
+import { OfferParam } from '@peek/core/model'
+import { PeekError } from '@peek/core/model'
+import { UseCase } from './usecase'
 
 export class MakeOffer extends UseCase<OfferParam, RTCSessionDescription> {
   async execute({ pc, opt }: OfferParam): Promise<RTCSessionDescription> {
-    return pc.createOffer(opt).then((offer) => {
-      const description = new RTCSessionDescription(offer)
-      pc.setLocalDescription(description)
-      return description
-    })
+    try {
+      return pc.createOffer(opt).then(async (offer) => {
+        const description = new RTCSessionDescription(offer)
+        await pc.setLocalDescription(description)
+        return description
+      })
+    } catch (error) {
+      throw new PeekError('make-offer', 1, pc.peerIdentity)
+    }
   }
 }

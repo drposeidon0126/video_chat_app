@@ -7,6 +7,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .mat-button-base {
+      text-transform: uppercase;
+      margin: 12px;
+    }
   }
   .peek-bottom-bar {
     justify-content: space-around;

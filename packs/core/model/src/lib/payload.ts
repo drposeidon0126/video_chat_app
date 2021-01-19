@@ -1,5 +1,4 @@
 export interface Payload {
-  sender?: string
-  candidate?: RTCIceCandidate
-  description?: RTCSessionDescription
+  sdp?: RTCSessionDescription
+  ice?: RTCIceCandidate
 }

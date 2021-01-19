@@ -17,6 +17,14 @@
       right: 6px;
       top: 6px;
     }
+    figure {
+      position: absolute;
+      margin: 0;
+      z-index: 1;
+      left: 16px;
+      width: 60px;
+      bottom: 16px;
+    }
   }
 
   video {

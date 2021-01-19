@@ -1,13 +1,13 @@
 import { Payload } from './payload'
 
-export class Message implements Payload {
+export class PeekMessage implements Payload {
   sender?: string
-  candidate?: RTCIceCandidate
-  description?: RTCSessionDescription
+  ice?: RTCIceCandidate
+  sdp?: RTCSessionDescription
 
-  constructor({ sender, description, candidate }: Payload) {
+  constructor(sender: string, { sdp, ice }: Partial<Payload>) {
     this.sender = sender
-    this.candidate = candidate
-    this.description = description
+    this.ice = ice
+    this.sdp = sdp
   }
 }
