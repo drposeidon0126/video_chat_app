@@ -1,3 +1,5 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatDialogModule } from '@angular/material/dialog'
 import { PeekMaterialModule } from '@peek/core/peek'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
@@ -9,7 +11,7 @@ describe('CheckComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PeekMaterialModule],
+      imports: [MatProgressBarModule],
       declarations: [CheckComponent],
     }).compileComponents()
   })

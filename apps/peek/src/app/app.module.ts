@@ -17,9 +17,16 @@ import {
   SOCKET_CONFIG_TOKEN,
 } from '@peek/core/peek'
 import { env } from '../envs/env'
+import { CheckDialog } from './check/check.dialog'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MeetComponent, CheckComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    MeetComponent,
+    CheckComponent,
+    CheckDialog,
+  ],
   imports: [
     A11yModule,
     CorePeekModule,

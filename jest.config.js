@@ -6,5 +6,6 @@ module.exports = {
     '<rootDir>/packs/core/usecase',
     '<rootDir>/apps/crane',
     '<rootDir>/packs/core/adapter',
+    '<rootDir>/packs/util/test',
   ],
 }

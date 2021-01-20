@@ -55,6 +55,9 @@
     },
     "core-adapter": {
       "tags": []
+    },
+    "util-test": {
+      "tags": ["type:util"]
     }
   }
 }

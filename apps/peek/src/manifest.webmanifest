@@ -1,8 +1,8 @@
 {
   "name": "Peek Contact",
   "short_name": "Peek",
-  "theme_color": "#fec006",
-  "background_color": "#2095f2",
+  "theme_color": "#673AB7",
+  "background_color": "#212121",
   "display": "standalone",
   "scope": "/",
   "start_url": "/?homescreen=1",

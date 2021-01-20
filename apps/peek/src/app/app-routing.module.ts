@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { HomeComponent } from './home/home.component'
 import { MeetComponent } from './meet/meet.component'
-import { CheckComponent } from './check/check.component'
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { CheckComponent } from './check/check.component'
           component: MeetComponent,
           data: { animation: 'MeetPage' },
         },
-        { path: 'check', component: CheckComponent },
       ],
       {
         useHash: true,

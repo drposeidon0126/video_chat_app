@@ -333,6 +333,27 @@
           }
         }
       }
+    },
+    "util-test": {
+      "root": "packs/util/test",
+      "sourceRoot": "packs/util/test/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packs/util/test/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/packs/util/test"],
+          "options": {
+            "jestConfig": "packs/util/test/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -19,7 +19,8 @@
       "@peek/shared/assets": ["packs/shared/assets/src/index.ts"],
       "@peek/core/peek": ["packs/core/peek/src/index.ts"],
       "@peek/core/usecase": ["packs/core/usecase/src/index.ts"],
-      "@peek/core/adapter": ["packs/core/adapter/src/index.ts"]
+      "@peek/core/adapter": ["packs/core/adapter/src/index.ts"],
+      "@peek/util/test": ["packs/util/test/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
