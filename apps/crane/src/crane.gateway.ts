@@ -14,6 +14,8 @@ export class CraneGateway {
     @ConnectedSocket() contact: Socket,
     @MessageBody() peekOffer: PeerOffer
   ) {
+    console.log(peekOffer);
+
     contact.broadcast.emit(PeerAction.Offer, peekOffer)
   }
 }

@@ -21,8 +21,6 @@ export class WebSocketFacade {
   }
 
   constructor(private config: WebSocketConfig) {
-    console.log(config)
-
     if (config === undefined) {
       config = this.emptyConfig
     }

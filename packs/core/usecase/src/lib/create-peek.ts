@@ -1,4 +1,4 @@
-import { uuid, PeekError, PeekMessage, PeerAction, WithTarget } from '@peek/core/model'
+import { uuid, PeekError, PeekPayload, PeerAction, WithTarget, PeekCode } from '@peek/core/model'
 import { WebSocketFacade } from '@peek/core/adapter'
 import { BehaviorSubject } from 'rxjs'
 
@@ -20,6 +20,7 @@ export class CreatePeek {
 
   constructor(
     private socket: WebSocketFacade,
+    private code: PeekCode,
     public pc: RTCPeerConnection = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
     })
@@ -35,16 +36,17 @@ export class CreatePeek {
 
     this.pc.onicecandidate = ({ candidate }) => {
       candidate
-        ? this.send(new PeekMessage(this.sender, { ice: candidate }))
+        ? this.send(new PeekPayload(this.sender, this.code, { ice: candidate }))
         : console.log('Sent All Ice')
     }
 
     this.pc.ontrack = ({ streams }) => this._track.next(streams)
   }
 
-  handle({ sdp, ice, sender }: PeekMessage) {
+  handle({ payload, code, sender }: PeekPayload) {
     try {
       if (sender !== this.sender) {
+        const { sdp, ice } = payload
         if (this.pc !== null && ice !== undefined) {
           this.pc.addIceCandidate(new RTCIceCandidate(ice))
         }
@@ -69,7 +71,7 @@ export class CreatePeek {
         .then((a) => this.pc.setLocalDescription(a))
         .then(() => {
           const sdp = { sdp: this.pc.localDescription }
-          this.send(new PeekMessage(this.sender, sdp))
+          this.send(new PeekPayload(this.sender, this.code, sdp))
         })
     } catch (error) {
       throw new PeekError('create-answer', 3)
@@ -86,7 +88,7 @@ export class CreatePeek {
         })
         .then((offer) => this.pc.setLocalDescription(offer))
         .then(() => ({ sdp: this.pc.localDescription }))
-        .then((sdp) => this.send(new PeekMessage(this.sender, sdp)))
+        .then((sdp) => this.send(new PeekPayload(this.sender, this.code, sdp)))
     } catch (error) {
       throw new PeekError('create-peer', 0)
     }
@@ -96,7 +98,7 @@ export class CreatePeek {
     this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
   }
 
-  private send(message: PeekMessage) {
+  private send(message: PeekPayload) {
     this.socket.emit(PeerAction.Offer, message)
   }
 

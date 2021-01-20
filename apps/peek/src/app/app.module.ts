@@ -1,31 +1,24 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { WebSocketFacade, WebSocketFactory } from '@peek/core/adapter'
+import { CorePeekModule, SOCKET_CONFIG_TOKEN } from '@peek/core/peek'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
+import { ServiceWorkerModule } from '@angular/service-worker'
+import { MeetComponent } from './meet/meet.component'
+import { PeekMaterialModule } from '@peek/shared/elements'
+import { HomeComponent } from './home/home.component'
+import { AppComponent } from './app.component'
 import { A11yModule } from '@angular/cdk/a11y'
 import { NgModule } from '@angular/core'
-import { AppComponent } from './app.component'
-import { HomeComponent } from './home/home.component'
-import { ServiceWorkerModule } from '@angular/service-worker'
-import { CheckComponent } from './check/check.component'
-import { MeetComponent } from './meet/meet.component'
-import {
-  PeekMaterialModule,
-  CorePeekModule,
-  SOCKET_CONFIG_TOKEN,
-} from '@peek/core/peek'
 import { env } from '../envs/env'
-import { CheckDialog } from './check/check.dialog'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MeetComponent,
-    CheckComponent,
-    CheckDialog,
+    MeetComponent
   ],
   imports: [
     A11yModule,

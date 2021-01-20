@@ -1,0 +1,53 @@
+<div
+  role="group"
+  class="control-code-input-container"
+  [formGroup]="parts"
+  [attr.aria-labelledby]="_formField?.getLabelId()"
+>
+  <input
+    class="control-code-input-element"
+    formControlName="timeLow"
+    size="8"
+    maxlength="8"
+    aria-label="Time low"
+    [readOnly]="readOnly"
+    (input)="_handleInput(parts.controls.timeLow, timeMid)"
+    #timeLow
+  />
+  <span class="control-code-input-spacer">&ndash;</span>
+  <input
+    class="control-code-input-element"
+    formControlName="timeMid"
+    maxlength="4"
+    size="4"
+    aria-label="Time mid"
+    [readOnly]="readOnly"
+    (input)="_handleInput(parts.controls.timeMid, timeHiAndVersion)"
+    (keyup.backspace)="autoFocusPrev(parts.controls.timeMid, timeLow)"
+    #timeMid
+  />
+  <span class="control-code-input-spacer">&ndash;</span>
+  <input
+    class="control-code-input-element"
+    formControlName="timeHiAndVersion"
+    maxlength="4"
+    size="4"
+    aria-label="Time hi and version"
+    [readOnly]="readOnly"
+    (input)="_handleInput(parts.controls.timeHiAndVersion, clockSecHiAndRes)"
+    (keyup.backspace)="autoFocusPrev(parts.controls.timeHiAndVersion, clockSecHiAndRes)"
+    #timeHiAndVersion
+  />
+  <span class="control-code-input-spacer">&ndash;</span>
+  <input
+    class="control-code-input-element"
+    formControlName="clockSecHiAndRes"
+    maxlength="4"
+    size="4"
+    aria-label="Clock sec hi and res"
+    [readOnly]="readOnly"
+    (input)="_handleInput(parts.controls.clockSecHiAndRes)"
+    (keyup.backspace)="autoFocusPrev(parts.controls.clockSecHiAndRes, timeHiAndVersion)"
+    #clockSecHiAndRes
+  />
+</div>

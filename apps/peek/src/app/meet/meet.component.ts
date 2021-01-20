@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { WebSocketFacade } from '@peek/core/adapter'
 import { CreatePeek } from '@peek/core/usecase'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { env } from './../../envs/env'
 import {
   AfterViewInit,
@@ -10,6 +10,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core'
+import { toPeekCode, PeekCode, peekCode } from '@peek/core/model'
 
 @Component({
   selector: 'peek-meet',
@@ -39,9 +40,16 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   destroy = new Subject<void>()
   localStream: MediaStream
   peek: CreatePeek
-
-  constructor(private _socket: WebSocketFacade, private _router: Router) {
-    this.peek = new CreatePeek(_socket)
+  constructor(
+    private _router: Router,
+    socket: WebSocketFacade,
+    route: ActivatedRoute
+  ) {
+    if (!route.snapshot.paramMap.has('code')) {
+      this._router.navigate(['/'])
+    }
+    const code = route.snapshot.paramMap.get('code')
+    this.peek = new CreatePeek(socket, toPeekCode(code))
     this.state = this.peek.state
   }
 
@@ -50,6 +58,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
     this.remoteVideo = this.remoteVideoRef.nativeElement
     this.peek.track.subscribe(([streams]) => {
       this.remoteVideo.srcObject = streams
+      this.remoteVideo.muted = true
     })
     navigator.mediaDevices.getUserMedia(env.constraints).then((stream) => {
       this.peek.pc.addStream(stream)
@@ -93,6 +102,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.stop()
     this.peek.close()
     this.destroy.next()
     this.destroy.complete()

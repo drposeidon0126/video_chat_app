@@ -58,6 +58,9 @@
     },
     "util-test": {
       "tags": ["type:util"]
+    },
+    "shared-elements": {
+      "tags": []
     }
   }
 }

@@ -7,5 +7,6 @@ module.exports = {
     '<rootDir>/apps/crane',
     '<rootDir>/packs/core/adapter',
     '<rootDir>/packs/util/test',
+    '<rootDir>/packs/shared/elements',
   ],
 }

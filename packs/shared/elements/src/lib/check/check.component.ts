@@ -51,7 +51,6 @@ export class CheckComponent implements AfterViewInit, OnDestroy {
 
         const value = Math.floor(Math.sqrt(sum / input.length) * 100)
         this.value = value < 50 ? value * 5 : value
-        console.log('process', this.value)
       })
     })
   }

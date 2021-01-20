@@ -1,3 +1,5 @@
+@import 'packs/shared/styles/src/index';
+
 :host {
   flex: 1;
   display: flex;
@@ -54,7 +56,8 @@
     justify-content: space-between;
   }
 
-  @media screen and (max-width: 400px) {
+
+  @include respond-to('small') {
     button {
       // width: 83px;
       margin: 0 11px 10px 0;

@@ -3,7 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
-import { CorePeekModule, PeekMaterialModule } from '@peek/core/peek'
+import { CorePeekModule } from '@peek/core/peek'
+import { PeekMaterialModule } from '@peek/shared/elements'
 
 describe('AppComponent', () => {
   beforeEach(async () => {

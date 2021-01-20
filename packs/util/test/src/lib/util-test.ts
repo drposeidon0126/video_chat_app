@@ -49,10 +49,14 @@ Object.defineProperty(window, 'RTCPeerConnection', {
     setRemoteDescription: jest.fn(),
     createOffer: jest.fn(),
     createAnswer: jest.fn(),
+    addTrack: jest.fn(),
     addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
     close: jest.fn(),
   })),
 })
+
 
 Object.defineProperty(window, 'SignalingChannel', {
   writable: true,
@@ -61,3 +65,12 @@ Object.defineProperty(window, 'SignalingChannel', {
     on: jest.fn(),
   })),
 })
+
+Object.defineProperty(window, 'AudioContext', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    createScriptProcessor: jest.fn(),
+    createMediaStreamSource: jest.fn(),
+  })),
+})
+

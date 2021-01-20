@@ -3,6 +3,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
@@ -19,6 +20,7 @@ import { NgModule } from '@angular/core'
     MatFormFieldModule,
     MatGridListModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatButtonModule,
     MatDialogModule,
     MatInputModule,

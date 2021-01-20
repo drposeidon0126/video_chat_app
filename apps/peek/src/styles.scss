@@ -1,3 +1,4 @@
+@import 'packs/shared/styles/src/index';
 @import '~@angular/material/theming';
 @import 'app/app-theme';
 @include mat-core();
@@ -66,4 +67,15 @@ h6 {
 }
 body .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0, 0, 0, 0.6);
+}
+
+.cdk-overlay-pane.peek-dialog {
+  width: 95vw;
+  @include respond-to('medium') {
+    width: 340px;
+  }
+  .mat-dialog-container {
+    width: 100%;
+    padding: 6px 8px;
+  }
 }
