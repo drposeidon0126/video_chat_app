@@ -1,4 +1,10 @@
-import { uuid, PeekError, PeekPayload, PeerAction, WithTarget, PeekCode } from '@peek/core/model'
+import {
+  uuid,
+  PeekError,
+  WithTarget,
+  PeekAction,
+  PeekPayload,
+} from '@peek/core/model'
 import { WebSocketFacade } from '@peek/core/adapter'
 import { BehaviorSubject } from 'rxjs'
 
@@ -20,12 +26,13 @@ export class CreatePeek {
 
   constructor(
     private socket: WebSocketFacade,
-    private code: PeekCode,
+    private code: string,
     public pc: RTCPeerConnection = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
     })
   ) {
-    this.socket.on(PeerAction.Offer, this.handle.bind(this))
+    this.socket.on(PeekAction.Offer, this.handle.bind(this))
+    this.socket.emit(PeekAction.CreateOrJoin, { code })
 
     this.pc.onsignalingstatechange = ({
       target,
@@ -43,7 +50,19 @@ export class CreatePeek {
     this.pc.ontrack = ({ streams }) => this._track.next(streams)
   }
 
-  handle({ payload, code, sender }: PeekPayload) {
+  onCreated(exec: Function) {
+    this.socket.on(PeekAction.Created, exec)
+  }
+
+  onJoined(exec: Function) {
+    this.socket.on(PeekAction.Joined, exec)
+  }
+
+  onFull(exec: Function) {
+    this.socket.on(PeekAction.Full, exec)
+  }
+
+  handle({ payload, sender }: PeekPayload) {
     try {
       if (sender !== this.sender) {
         const { sdp, ice } = payload
@@ -52,9 +71,9 @@ export class CreatePeek {
         }
         if (sdp)
           switch (sdp.type) {
-            case PeerAction.Offer:
+            case PeekAction.Offer:
               return this.createAnswer(sdp)
-            case PeerAction.Answer:
+            case PeekAction.Answer:
               return this.setRemote(sdp)
           }
       }
@@ -99,7 +118,7 @@ export class CreatePeek {
   }
 
   private send(message: PeekPayload) {
-    this.socket.emit(PeerAction.Offer, message)
+    this.socket.emit(PeekAction.Offer, message)
   }
 
   close() {

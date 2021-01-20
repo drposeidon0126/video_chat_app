@@ -10,7 +10,6 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core'
-import { toPeekCode, PeekCode, peekCode } from '@peek/core/model'
 
 @Component({
   selector: 'peek-meet',
@@ -40,26 +39,31 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   destroy = new Subject<void>()
   localStream: MediaStream
   peek: CreatePeek
+
   constructor(
     private _router: Router,
     socket: WebSocketFacade,
     route: ActivatedRoute
   ) {
-    if (!route.snapshot.paramMap.has('code')) {
-      this._router.navigate(['/'])
-    }
     const code = route.snapshot.paramMap.get('code')
-    this.peek = new CreatePeek(socket, toPeekCode(code))
+    if (!code) this._router.navigate(['/'])
+
+    this.peek = new CreatePeek(socket, code)
     this.state = this.peek.state
   }
 
   ngAfterViewInit(): void {
     this.localVideo = this.localVideoRef.nativeElement
     this.remoteVideo = this.remoteVideoRef.nativeElement
+    this.peek.onCreated(() => this.setLocalStream())
+    this.peek.onJoined(() => this.setLocalStream())
+    // this.peek.onFull(() => this.hangup())
     this.peek.track.subscribe(([streams]) => {
       this.remoteVideo.srcObject = streams
-      this.remoteVideo.muted = true
     })
+  }
+
+  setLocalStream() {
     navigator.mediaDevices.getUserMedia(env.constraints).then((stream) => {
       this.peek.pc.addStream(stream)
       this.localStream = stream
@@ -96,6 +100,8 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   }
 
   hangup() {
+    console.log('hanup');
+
     this.stop()
     this.peek.close()
     this._router.navigateByUrl('/')

@@ -5,9 +5,6 @@
   <video #localVideo id="localVideo" playsinline autoplay muted></video>
   <video #remoteVideo id="remoteVideo" playsinline autoplay></video>
 
-  <figure *ngIf="(state | async) === 'stable'">
-    <ng-container [ngTemplateOutlet]="animation"></ng-container>
-  </figure>
 </section>
 <mat-toolbar>
   <div>
@@ -35,7 +32,3 @@
     <mat-icon>call_end</mat-icon>
   </button>
 </mat-toolbar>
-
-<ng-template #animation>
-  <img src="assets/images/aspiral.svg" alt="Logo animada">
-</ng-template>

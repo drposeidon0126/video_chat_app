@@ -8,13 +8,13 @@ export interface Payload {
 export class PeekPayload {
   constructor(
     public sender: string,
-    public code: PeekCode,
+    public code: string,
     public payload: Payload = {}
   ) {}
 }
 export interface PeekPayload {
   sender: string
-  code: PeekCode
+  code: string
   payload: Payload
 }
 

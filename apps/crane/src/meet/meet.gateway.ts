@@ -4,6 +4,7 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
+  OnGatewayDisconnect,
 } from '@nestjs/websockets'
 import { PeekAction, PeekPayload } from '@peek/core/model'
 import { Server, Socket } from 'socket.io'
@@ -11,9 +12,30 @@ import { UseGuards } from '@nestjs/common'
 import { MeetGuard } from './meet.guard'
 
 @WebSocketGateway()
-export class MeetGateway {
+export class MeetGateway implements OnGatewayDisconnect {
+  handleDisconnect(contact: Socket) {
+    contact.leaveAll()
+  }
   @WebSocketServer()
   server: Server
+
+  @UseGuards(new MeetGuard())
+  @SubscribeMessage(PeekAction.CreateOrJoin)
+  create(
+    @ConnectedSocket() contact: Socket,
+    @MessageBody() payload: PeekPayload
+  ) {
+    const room = this._getRoom(payload)
+    if (room.length === 0) {
+      contact.join(payload.code)
+      contact.emit(PeekAction.Created)
+    } else if (room.length > 0 && room.length < 5) {
+      contact.join(payload.code)
+      contact.emit(PeekAction.Joined)
+    } else {
+      contact.emit(PeekAction.Full)
+    }
+  }
 
   @UseGuards(new MeetGuard())
   @SubscribeMessage(PeekAction.Offer)
@@ -21,67 +43,12 @@ export class MeetGateway {
     @ConnectedSocket() contact: Socket,
     @MessageBody() payload: PeekPayload
   ) {
-    contact.broadcast.emit(PeekAction.Offer, payload)
+    const room = contact.to(payload.code)
+    room.broadcast.emit(PeekAction.Offer, payload)
   }
 
-  // @SubscribeMessage(PeekAction.CreateOrJoin)
-  // createOrJoin(
-  //   @ConnectedSocket() contact: Socket,
-  //   @MessageBody() peerContact: string
-  // ) {
-  //   console.log('create or join to room ', peerContact)
-
-  //   var myMeet = this.server.sockets.adapter.rooms[peerContact] || { length: 0 }
-  //   var numContacts = myMeet.length
-
-  //   console.log(peerContact, ' has ', numContacts, ' clients')
-
-  //   if (numContacts == 0) {
-  //     contact.join(peerContact)
-  //     contact.emit(PeekAction.Created, peerContact)
-  //   } else if (numContacts == 1) {
-  //     contact.join(peerContact)
-  //     contact.emit(PeekAction.Joined, peerContact)
-  //   } else {
-  //     contact.emit(PeekAction.Full, peerContact)
-  //   }
-  // }
-
-  // @SubscribeMessage(PeekAction.Ready)
-  // ready(
-  //   @ConnectedSocket() contact: Socket,
-  //   @MessageBody() peerContact: string
-  // ) {
-  //   contact.broadcast.to(peerContact).emit(PeekAction.Ready)
-  // }
-
-  // @SubscribeMessage(PeekAction.Candidate)
-  // candidate(
-  //   @ConnectedSocket() contact: Socket,
-  //   @MessageBody() peerContact: { room: string; cancidate: any }
-  // ) {
-  //   contact.broadcast
-  //     .to(peerContact.room)
-  //     .emit(PeekAction.Candidate, peerContact)
-  // }
-
-  // @SubscribeMessage(PeekAction.Offer)
-  // offer(
-  //   @ConnectedSocket() contact: Socket,
-  //   @MessageBody() peerContact: { room: string; sdp: any }
-  // ) {
-  //   contact.broadcast
-  //     .to(peerContact.room)
-  //     .emit(PeekAction.Offer, peerContact.sdp)
-  // }
-
-  // @SubscribeMessage(PeekAction.Answer)
-  // answer(
-  //   @ConnectedSocket() contact: Socket,
-  //   @MessageBody() peerContact: { room: string; sdp: any }
-  // ) {
-  //   contact.broadcast
-  //     .to(peerContact.room)
-  //     .emit(PeekAction.Answer, peerContact.sdp)
-  // }
+  private _getRoom({ code }) {
+    const adapter = this.server.sockets.adapter
+    return adapter.rooms[code] ?? { length: 0 }
+  }
 }

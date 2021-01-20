@@ -9,6 +9,7 @@ import { MeetComponent } from './meet.component'
 const webSocketMock = {
   on: jest.fn(),
   send: jest.fn(),
+  emit: jest.fn(),
 }
 
 describe('MeetComponent', () => {
