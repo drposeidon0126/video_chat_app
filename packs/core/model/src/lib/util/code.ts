@@ -1,5 +1,9 @@
 import { PeekCode } from '../code'
 
+/**
+ * Create a `PeekCode` string
+ * @returns {string}
+ */
 export function peekCode(): string {
   function S4(): string {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -10,10 +14,20 @@ export function peekCode(): string {
   return `${S4()}${S4()}-${S4()}-${S4()}-${S4()}`
 }
 
+/**
+ * Create an `PeekCode` Instance
+ */
 export function createPeekCode() {
   return toPeekCode(peekCode())
 }
 
+/**
+ * PeekCode to string
+ *
+ * @export
+ * @param {PeekCode} PeekCode
+ * @returns {string}
+ */
 export function fromPeekCode({
   timeLow,
   timeMid,

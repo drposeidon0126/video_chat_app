@@ -1,5 +1,3 @@
-import { peerCode } from '@peek/core/model'
-
 export interface PageInfo {
   icon: string
   title: string

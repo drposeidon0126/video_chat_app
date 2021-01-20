@@ -2,6 +2,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { WebSocketFacade } from '@peek/core/adapter'
 import { CreatePeek } from '@peek/core/usecase'
 import { ActivatedRoute, Router } from '@angular/router'
+import { getDisplayMedia } from './meet.media'
 import { env } from './../../envs/env'
 import {
   AfterViewInit,
@@ -100,7 +101,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   }
 
   hangup() {
-    console.log('hanup');
+    console.log('hanup')
 
     this.stop()
     this.peek.close()

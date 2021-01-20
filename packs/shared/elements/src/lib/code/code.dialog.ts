@@ -36,7 +36,7 @@ export class PeekCodeDialog implements OnInit {
 
   onShare() {
     const text = 'Aqui está a chave da nossa reunião\n'
-    this._ref.close(this.data)
+    // this._ref.close(this.data)
     window.open(
       (this._platform.isBrowser
         ? 'https://api.whatsapp.com/send?text='

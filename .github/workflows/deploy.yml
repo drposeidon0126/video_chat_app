@@ -44,7 +44,7 @@ jobs:
         run: npm run affected:test -- --base=origin/main
 
       - name: Build
-        run: npm run affected:build -- --prod --base=origin/main
+        run: npm run affected:build -- --prod --base=origin/main --with-deps
 
       - name: Setup assets
         run: |

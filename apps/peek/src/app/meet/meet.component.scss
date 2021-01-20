@@ -44,6 +44,9 @@
       object-fit: cover;
     }
   }
+  .off {
+    opacity: 0.4;
+  }
 
   video#localVideo {
     width: 25%;
@@ -65,7 +68,8 @@
 
     video#localVideo {
       height: 90px;
-      width: calc(50% - 7px);
+      width: auto;
+      // width: calc(50% - 7px);
       margin: 0 10px 20px 0;
     }
   }

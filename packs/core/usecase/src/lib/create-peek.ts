@@ -123,6 +123,7 @@ export class CreatePeek {
 
   close() {
     this.pc.close()
+    this.pc = null
     this._state.next('closed')
   }
 }

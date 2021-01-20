@@ -11,6 +11,7 @@
     <button
       mat-icon-button
       [disabled]="(state | async) == 'closed'"
+      [ngClass]="{off: !(video | async)}"
       (click)="toggleVideo()"
     >
       <mat-icon>{{ (video | async) ? 'videocam' : 'videocam_off' }}</mat-icon>
@@ -18,6 +19,7 @@
     <button
       mat-icon-button
       [disabled]="(state | async) == 'closed'"
+      [ngClass]="{off: !(audio | async)}"
       (click)="toggleAudio()"
     >
       <mat-icon> {{ (audio | async) ? 'mic' : 'mic_off' }} </mat-icon>
