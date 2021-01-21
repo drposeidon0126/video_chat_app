@@ -1,6 +1,9 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { WebSocketFacade, WebSocketFactory } from '@peek/core/adapter'
-import { SharedDataAccessModule, SOCKET_CONFIG_TOKEN } from '@peek/shared/data-access'
+import {
+  SharedDataAccessModule,
+  SOCKET_CONFIG_TOKEN,
+} from '@peek/shared/data-access'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
@@ -15,11 +18,7 @@ import { NgModule } from '@angular/core'
 import { env } from '../envs/env'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    MeetComponent
-  ],
+  declarations: [AppComponent, HomeComponent, MeetComponent],
   imports: [
     A11yModule,
     BrowserModule,

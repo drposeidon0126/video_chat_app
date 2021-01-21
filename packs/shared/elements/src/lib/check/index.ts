@@ -1,2 +1,2 @@
-export * from './check.component';
-export * from './check.dialog';
+export * from './check.component'
+export * from './check.dialog'

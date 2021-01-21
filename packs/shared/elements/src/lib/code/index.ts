@@ -1,2 +1,2 @@
-export * from './code.component';
-export * from './code.dialog';
+export * from './code.component'
+export * from './code.dialog'

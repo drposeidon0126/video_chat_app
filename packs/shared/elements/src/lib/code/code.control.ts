@@ -140,8 +140,14 @@ export class PeekCodeControl
     return null
   }
   set value(code: PeekCode | null) {
-    const { timeLow, timeMid, timeHiAndVersion, clockSecHiAndRes } = code || new PeekCode('', '', '', '')
-    this.parts.setValue({ timeLow, timeMid, timeHiAndVersion, clockSecHiAndRes })
+    const { timeLow, timeMid, timeHiAndVersion, clockSecHiAndRes } =
+      code || new PeekCode('', '', '', '')
+    this.parts.setValue({
+      timeLow,
+      timeMid,
+      timeHiAndVersion,
+      clockSecHiAndRes,
+    })
     this.stateChanges.next()
   }
 
@@ -282,7 +288,7 @@ export class PeekCodeControl
   }
 
   _handleInput(control: AbstractControl, nextElement?: HTMLInputElement): void {
-    console.log(nextElement);
+    console.log(nextElement)
 
     this.autoFocusNext(control, nextElement)
     this.onChange(this.value)

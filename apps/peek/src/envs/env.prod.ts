@@ -37,5 +37,5 @@ export const env = {
         min: 10,
       },
     },
-  }
-};
+  },
+}

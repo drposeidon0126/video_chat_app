@@ -1,4 +1,8 @@
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -31,7 +35,7 @@ describe('PeekCodeDialog', () => {
       declarations: [PeekCodeDialog],
       providers: [
         { provide: MAT_DIALOG_DATA, value: {} },
-        { provide: MatDialogRef, useValue: {} }
+        { provide: MatDialogRef, useValue: {} },
       ],
     }).compileComponents()
   })

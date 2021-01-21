@@ -1,7 +1,7 @@
-import { PickContacts } from './pick-contacts';
+import { PickContacts } from './pick-contacts'
 
 describe('PickContacts', () => {
   it('should create an instance', () => {
-    expect(new PickContacts()).toBeTruthy();
-  });
-});
+    expect(new PickContacts()).toBeTruthy()
+  })
+})

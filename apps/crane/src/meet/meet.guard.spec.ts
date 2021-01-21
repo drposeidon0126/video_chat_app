@@ -1,7 +1,7 @@
-import { MeetGuard } from './meet.guard';
+import { MeetGuard } from './meet.guard'
 
 describe('MeetGuard', () => {
   it('should be defined', () => {
-    expect(new MeetGuard()).toBeDefined();
-  });
-});
+    expect(new MeetGuard()).toBeDefined()
+  })
+})

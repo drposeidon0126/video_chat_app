@@ -17,5 +17,3 @@ export interface PeekPayload {
   code: string
   payload: Payload
 }
-
-

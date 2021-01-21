@@ -2,20 +2,14 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "outDir": "../../../dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": [
-    "**/*.spec.ts"
-  ],
-  "include": [
-    "**/*.ts"
-  ],
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"],
   "extends": "./tsconfig.json"
 }

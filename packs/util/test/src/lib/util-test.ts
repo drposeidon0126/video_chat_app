@@ -57,7 +57,6 @@ Object.defineProperty(window, 'RTCPeerConnection', {
   })),
 })
 
-
 Object.defineProperty(window, 'SignalingChannel', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -73,4 +72,3 @@ Object.defineProperty(window, 'AudioContext', {
     createMediaStreamSource: jest.fn(),
   })),
 })
-
