@@ -17,7 +17,7 @@ $peek-typography: mat-typography-config(
 @include mat-card-typography($peek-base-typography);
 @include angular-material-typography($peek-typography);
 
-$peek-primary: mat-palette($mat-yellow);
+$peek-primary: mat-palette($mat-green);
 $peek-accent: mat-palette($mat-light-blue);
 $peek-warn: mat-palette($mat-deep-orange);
 $peek-theme: mat-dark-theme(

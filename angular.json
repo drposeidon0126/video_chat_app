@@ -185,43 +185,6 @@
         }
       }
     },
-    "core-peek": {
-      "projectType": "library",
-      "root": "packs/core/peek",
-      "sourceRoot": "packs/core/peek/src",
-      "prefix": "peek",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:ng-packagr-lite",
-          "options": {
-            "tsConfig": "packs/core/peek/tsconfig.lib.json",
-            "project": "packs/core/peek/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "packs/core/peek/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packs/core/peek/src/**/*.ts",
-              "packs/core/peek/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/core/peek"],
-          "options": {
-            "jestConfig": "packs/core/peek/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "core-usecase": {
       "root": "packs/core/usecase",
       "sourceRoot": "packs/core/usecase/src",
@@ -387,6 +350,43 @@
           "outputs": ["coverage/packs/shared/elements"],
           "options": {
             "jestConfig": "packs/shared/elements/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-data-access": {
+      "projectType": "library",
+      "root": "packs/shared/data-access",
+      "sourceRoot": "packs/shared/data-access/src",
+      "prefix": "peek",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "packs/shared/data-access/tsconfig.lib.json",
+            "project": "packs/shared/data-access/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packs/shared/data-access/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packs/shared/data-access/src/**/*.ts",
+              "packs/shared/data-access/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/packs/shared/data-access"],
+          "options": {
+            "jestConfig": "packs/shared/data-access/jest.config.js",
             "passWithNoTests": true
           }
         }

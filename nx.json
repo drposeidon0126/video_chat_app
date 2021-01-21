@@ -44,9 +44,6 @@
     "shared-styles": {
       "tags": []
     },
-    "core-peek": {
-      "tags": []
-    },
     "core-usecase": {
       "tags": []
     },
@@ -60,6 +57,9 @@
       "tags": ["type:util"]
     },
     "shared-elements": {
+      "tags": []
+    },
+    "shared-data-access": {
       "tags": []
     }
   }

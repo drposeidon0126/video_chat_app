@@ -1,5 +1,7 @@
 import { PeekCode } from '../code'
 
+export const PEEK_CODE_REGEX = /^(?:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4})$/i
+
 /**
  * Create a `PeekCode` string
  * @returns {string}
@@ -43,7 +45,9 @@ export function fromPeekCode({
  * @returns {PeekCode}
  */
 export function toPeekCode(code: string): PeekCode {
-  const [timeLow, timeMid, timeHiAndVersion, clockSecHiAndRes] = (code ?? '').split('-')
+  const [timeLow, timeMid, timeHiAndVersion, clockSecHiAndRes] = (
+    code ?? ''
+  ).split('-')
   return new PeekCode(timeLow, timeMid, timeHiAndVersion, clockSecHiAndRes)
 }
 
@@ -66,6 +70,7 @@ export function isPeekCode(peekCode: PeekCode | object | string) {
  * @returns boolean
  */
 export function validatePeekCode(code: string | PeekCode) {
-  const str = isPeekCode(code) ? fromPeekCode(code as PeekCode) : String(code)
-  return /[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}/.test(str)
+  return PEEK_CODE_REGEX.test(
+    isPeekCode(code) ? fromPeekCode(code as PeekCode) : String(code)
+  )
 }

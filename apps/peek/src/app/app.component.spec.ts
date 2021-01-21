@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
-import { CorePeekModule } from '@peek/core/peek'
+import { SharedDataAccessModule } from '@peek/shared/data-access'
 import { PeekMaterialModule } from '@peek/shared/elements'
 
 describe('AppComponent', () => {
@@ -11,7 +11,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        CorePeekModule,
+        SharedDataAccessModule,
         PeekMaterialModule,
         MatSidenavModule,
         BrowserAnimationsModule,

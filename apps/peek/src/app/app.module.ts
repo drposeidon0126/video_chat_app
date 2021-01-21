@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { WebSocketFacade, WebSocketFactory } from '@peek/core/adapter'
-import { CorePeekModule, SOCKET_CONFIG_TOKEN } from '@peek/core/peek'
+import { SharedDataAccessModule, SOCKET_CONFIG_TOKEN } from '@peek/shared/data-access'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
@@ -22,12 +22,12 @@ import { env } from '../envs/env'
   ],
   imports: [
     A11yModule,
-    CorePeekModule,
     BrowserModule,
     AppRoutingModule,
     MatSidenavModule,
     PeekMaterialModule,
     ReactiveFormsModule,
+    SharedDataAccessModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: env.prod }),
   ],

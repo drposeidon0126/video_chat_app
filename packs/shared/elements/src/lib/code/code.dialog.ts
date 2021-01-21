@@ -2,7 +2,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Component, Inject, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { MatTooltip } from '@angular/material/tooltip'
-import { after, PeekCode } from '@peek/core/model'
+import {
+  after,
+  createPeekCode,
+  PeekCode,
+  PEEK_CODE_REGEX,
+} from '@peek/core/model'
 import { Platform } from '@angular/cdk/platform'
 
 @Component({
@@ -10,13 +15,10 @@ import { Platform } from '@angular/cdk/platform'
   styleUrls: ['./code.dialog.scss'],
 })
 export class PeekCodeDialog implements OnInit {
-  url = `https://peek.contact/${this.data}`
-  // [0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}
+  url = `https://peek.contact/#/${this.data}`
   key = new FormControl('', [
     Validators.required,
-    Validators.pattern(
-      /[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}/
-    ),
+    Validators.pattern(PEEK_CODE_REGEX),
   ])
 
   constructor(
@@ -27,6 +29,7 @@ export class PeekCodeDialog implements OnInit {
 
   ngOnInit(): void {
     this.key.setValue(this.data)
+    console.log(createPeekCode())
   }
 
   onCopy(toolTip: MatTooltip) {
