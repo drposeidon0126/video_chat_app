@@ -19,7 +19,7 @@ export class MeetGateway implements OnGatewayDisconnect {
   @WebSocketServer()
   server: Server
 
-  @UseGuards(new MeetGuard())
+  @UseGuards(MeetGuard)
   @SubscribeMessage(PeekAction.CreateOrJoin)
   create(
     @ConnectedSocket() contact: Socket,
@@ -37,7 +37,7 @@ export class MeetGateway implements OnGatewayDisconnect {
     }
   }
 
-  @UseGuards(new MeetGuard())
+  @UseGuards(MeetGuard)
   @SubscribeMessage(PeekAction.Offer)
   restart(
     @ConnectedSocket() contact: Socket,
@@ -50,5 +50,15 @@ export class MeetGateway implements OnGatewayDisconnect {
   private _getRoom({ code }) {
     const adapter = this.server.sockets.adapter
     return adapter.rooms[code] ?? { length: 0 }
+  }
+
+  @SubscribeMessage('message')
+  message(
+    @ConnectedSocket() contact: Socket,
+    @MessageBody() payload: PeekPayload
+  ) {
+    console.log('aha')
+    contact.emit('message', payload)
+    contact.broadcast.emit('message', payload)
   }
 }

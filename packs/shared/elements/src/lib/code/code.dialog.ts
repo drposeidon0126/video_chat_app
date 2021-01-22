@@ -29,7 +29,6 @@ export class PeekCodeDialog implements OnInit {
 
   ngOnInit(): void {
     this.key.setValue(this.data)
-    console.log(createPeekCode())
   }
 
   onCopy(toolTip: MatTooltip) {
