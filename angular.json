@@ -470,6 +470,43 @@
           }
         }
       }
+    },
+    "core-entity": {
+      "root": "packs/core/entity",
+      "sourceRoot": "packs/core/entity/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packs/core/entity/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packs/core/entity"
+          ],
+          "options": {
+            "jestConfig": "packs/core/entity/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packs/core/entity",
+            "tsConfig": "packs/core/entity/tsconfig.lib.json",
+            "packageJson": "packs/core/entity/package.json",
+            "main": "packs/core/entity/src/index.ts",
+            "assets": [
+              "packs/core/entity/*.md"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

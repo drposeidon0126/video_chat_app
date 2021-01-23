@@ -1,14 +1,9 @@
 {
   "npmScope": "peek",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,53 +12,23 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
-  "workspaceLayout": {
-    "appsDir": "apps",
-    "libsDir": "packs"
-  },
+  "workspaceLayout": { "appsDir": "apps", "libsDir": "packs" },
   "projects": {
-    "peek": {
-      "tags": [],
-      "implicitDependencies": ["shared-assets"]
-    },
-    "peek-e2e": {
-      "tags": [],
-      "implicitDependencies": ["peek"]
-    },
-    "core-model": {
-      "tags": []
-    },
-    "shared-assets": {
-      "tags": []
-    },
-    "shared-styles": {
-      "tags": []
-    },
-    "core-usecase": {
-      "tags": []
-    },
-    "crane": {
-      "tags": []
-    },
-    "core-adapter": {
-      "tags": []
-    },
-    "util-test": {
-      "tags": ["type:util"]
-    },
-    "shared-elements": {
-      "tags": []
-    },
-    "shared-data-access": {
-      "tags": []
-    },
-    "util-format": {
-      "tags": ["type:util"]
-    }
+    "peek": { "tags": [], "implicitDependencies": ["shared-assets"] },
+    "peek-e2e": { "tags": [], "implicitDependencies": ["peek"] },
+    "core-model": { "tags": [] },
+    "shared-assets": { "tags": [] },
+    "shared-styles": { "tags": [] },
+    "core-usecase": { "tags": [] },
+    "crane": { "tags": [] },
+    "core-adapter": { "tags": [] },
+    "util-test": { "tags": ["type:util"] },
+    "shared-elements": { "tags": [] },
+    "shared-data-access": { "tags": [] },
+    "util-format": { "tags": ["type:util"] },
+    "core-entity": { "tags": [] }
   }
 }

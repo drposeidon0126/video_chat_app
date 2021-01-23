@@ -22,7 +22,8 @@
       "@peek/util/test": ["packs/util/test/src/index.ts"],
       "@peek/shared/elements": ["packs/shared/elements/src/index.ts"],
       "@peek/shared/data-access": ["packs/shared/data-access/src/index.ts"],
-      "@peek/util/format": ["packs/util/format/src/index.ts"]
+      "@peek/util/format": ["packs/util/format/src/index.ts"],
+      "@peek/core/entity": ["packs/core/entity/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
