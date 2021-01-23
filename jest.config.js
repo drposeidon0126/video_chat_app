@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/packs/util/test',
     '<rootDir>/packs/shared/elements',
     '<rootDir>/packs/shared/data-access',
+    '<rootDir>/packs/util/format',
   ],
 }

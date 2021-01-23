@@ -1,13 +1,10 @@
-export async function logTrackIds(sdpSemantics: string) {
+export async function createPeers(sdpSemantics: string) {
   console.log('--- sdpSemantics: ' + sdpSemantics + ' ---')
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
   const [track] = stream.getTracks()
 
   const config: RTCConfiguration = {
-    iceServers: [
-      { urls: 'stun:stun.stunprotocol.org:3478' },
-      { urls: 'stun:stun.l.google.com:19302' },
-    ],
+    iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
   }
   const pc1 = new RTCPeerConnection(config)
   const pc2 = new RTCPeerConnection(config)
@@ -29,7 +26,10 @@ export async function logTrackIds(sdpSemantics: string) {
   await performOfferAnswer(pc1, pc2)
 }
 
-async function performOfferAnswer(pc1, pc2) {
+async function performOfferAnswer(
+  pc1: RTCPeerConnection,
+  pc2: RTCPeerConnection
+) {
   const offer = await pc1.createOffer()
   await pc1.setLocalDescription(offer)
   await pc2.setRemoteDescription(offer)

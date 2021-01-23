@@ -13,9 +13,7 @@ import { MeetGuard } from './meet.guard'
 
 @WebSocketGateway()
 export class MeetGateway implements OnGatewayDisconnect {
-  handleDisconnect(contact: Socket) {
-    contact.leaveAll()
-  }
+
   @WebSocketServer()
   server: Server
 
@@ -25,7 +23,7 @@ export class MeetGateway implements OnGatewayDisconnect {
     @ConnectedSocket() contact: Socket,
     @MessageBody() payload: PeekPayload
   ) {
-    const room = this._getRoom(payload)
+    const room = this._room(payload)
     if (room.length === 0) {
       contact.join(payload.code)
       contact.emit(PeekAction.Created)
@@ -47,9 +45,13 @@ export class MeetGateway implements OnGatewayDisconnect {
     room.broadcast.emit(PeekAction.Offer, payload)
   }
 
-  private _getRoom({ code }) {
+  private _room({ code }) {
     const adapter = this.server.sockets.adapter
     return adapter.rooms[code] ?? { length: 0 }
+  }
+
+  handleDisconnect(contact: Socket) {
+    contact.leaveAll()
   }
 
   @SubscribeMessage('message')
@@ -57,7 +59,6 @@ export class MeetGateway implements OnGatewayDisconnect {
     @ConnectedSocket() contact: Socket,
     @MessageBody() payload: PeekPayload
   ) {
-    console.log('aha')
     contact.emit('message', payload)
     contact.broadcast.emit('message', payload)
   }

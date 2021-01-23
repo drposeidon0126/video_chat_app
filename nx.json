@@ -61,6 +61,9 @@
     },
     "shared-data-access": {
       "tags": []
+    },
+    "util-format": {
+      "tags": ["type:util"]
     }
   }
 }

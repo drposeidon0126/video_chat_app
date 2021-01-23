@@ -1,3 +1,5 @@
+export * from './lib/create-public-identity'
+export * from './lib/create-auth-identity'
 export * from './lib/request-permission'
 export * from './lib/pick-contacts'
 export * from './lib/create-peek'

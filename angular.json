@@ -26,7 +26,9 @@
               },
               "apps/peek/src/manifest.webmanifest"
             ],
-            "styles": ["apps/peek/src/styles.scss"],
+            "styles": [
+              "apps/peek/src/styles.scss"
+            ],
             "allowedCommonJsDependencies": [
               "socket.io-client",
               "zone.js/dist/zone-error"
@@ -94,7 +96,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/peek"],
+          "outputs": [
+            "coverage/apps/peek"
+          ],
           "options": {
             "jestConfig": "apps/peek/jest.config.js",
             "passWithNoTests": true
@@ -123,7 +127,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/peek-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/peek-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -136,12 +142,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/core/model/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/core/model/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/core/model"],
+          "outputs": [
+            "coverage/packs/core/model"
+          ],
           "options": {
             "jestConfig": "packs/core/model/jest.config.js",
             "passWithNoTests": true
@@ -154,7 +164,9 @@
             "tsConfig": "packs/core/model/tsconfig.lib.json",
             "packageJson": "packs/core/model/package.json",
             "main": "packs/core/model/src/index.ts",
-            "assets": ["packs/core/model/*.md"]
+            "assets": [
+              "packs/core/model/*.md"
+            ]
           }
         }
       }
@@ -167,7 +179,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/shared/assets/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/shared/assets/**/*.ts"
+            ]
           }
         }
       }
@@ -180,7 +194,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/shared/styles/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/shared/styles/**/*.ts"
+            ]
           }
         }
       }
@@ -193,12 +209,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/core/usecase/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/core/usecase/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/core/usecase"],
+          "outputs": [
+            "coverage/packs/core/usecase"
+          ],
           "options": {
             "jestConfig": "packs/core/usecase/jest.config.js",
             "passWithNoTests": false
@@ -211,7 +231,9 @@
             "tsConfig": "packs/core/usecase/tsconfig.lib.json",
             "packageJson": "packs/core/usecase/package.json",
             "main": "packs/core/usecase/src/index.ts",
-            "assets": ["packs/core/usecase/*.md"]
+            "assets": [
+              "packs/core/usecase/*.md"
+            ]
           }
         }
       }
@@ -224,7 +246,9 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/crane",
             "main": "apps/crane/src/main.ts",
@@ -253,12 +277,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/crane/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/crane/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/crane"],
+          "outputs": [
+            "coverage/apps/crane"
+          ],
           "options": {
             "jestConfig": "apps/crane/jest.config.js",
             "passWithNoTests": false
@@ -274,12 +302,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/core/adapter/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/core/adapter/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/core/adapter"],
+          "outputs": [
+            "coverage/packs/core/adapter"
+          ],
           "options": {
             "jestConfig": "packs/core/adapter/jest.config.js",
             "passWithNoTests": true
@@ -292,7 +324,9 @@
             "tsConfig": "packs/core/adapter/tsconfig.lib.json",
             "packageJson": "packs/core/adapter/package.json",
             "main": "packs/core/adapter/src/index.ts",
-            "assets": ["packs/core/adapter/*.md"]
+            "assets": [
+              "packs/core/adapter/*.md"
+            ]
           }
         }
       }
@@ -305,12 +339,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packs/util/test/**/*.ts"]
+            "lintFilePatterns": [
+              "packs/util/test/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/util/test"],
+          "outputs": [
+            "coverage/packs/util/test"
+          ],
           "options": {
             "jestConfig": "packs/util/test/jest.config.js",
             "passWithNoTests": true
@@ -347,7 +385,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/shared/elements"],
+          "outputs": [
+            "coverage/packs/shared/elements"
+          ],
           "options": {
             "jestConfig": "packs/shared/elements/jest.config.js",
             "passWithNoTests": true
@@ -384,10 +424,49 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/packs/shared/data-access"],
+          "outputs": [
+            "coverage/packs/shared/data-access"
+          ],
           "options": {
             "jestConfig": "packs/shared/data-access/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "util-format": {
+      "root": "packs/util/format",
+      "sourceRoot": "packs/util/format/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packs/util/format/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packs/util/format"
+          ],
+          "options": {
+            "jestConfig": "packs/util/format/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packs/util/format",
+            "tsConfig": "packs/util/format/tsconfig.lib.json",
+            "packageJson": "packs/util/format/package.json",
+            "main": "packs/util/format/src/index.ts",
+            "assets": [
+              "packs/util/format/*.md"
+            ]
           }
         }
       }

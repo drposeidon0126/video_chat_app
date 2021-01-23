@@ -41,13 +41,22 @@ export class CreatePeek {
       this._state.next(target.signalingState)
     }
 
-    this.pc.onicecandidate = ({ candidate }) => {
-      candidate
-        ? this.send(new PeekPayload(this.sender, this.code, { ice: candidate }))
-        : console.log('Sent All Ice')
-    }
+    this.pc.addEventListener('icecandidate', ({ candidate }) => {
+      candidate &&
+        this.send(new PeekPayload(this.sender, this.code, { ice: candidate }))
+    })
 
-    this.pc.ontrack = ({ streams }) => this._track.next(streams)
+    this.pc.addEventListener('track', ({ streams }) =>
+      this._track.next(streams)
+    )
+
+    // this.pc.onicecandidate = ({ candidate }) => {
+    //   candidate
+    //     ? this.send(new PeekPayload(this.sender, this.code, { ice: candidate }))
+    //     : console.log('Sent All Ice')
+    // }
+
+    // this.pc.ontrack = ({ streams }) => this._track.next(streams)
   }
 
   onCreated(exec: Function) {

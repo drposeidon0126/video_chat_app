@@ -1,4 +1,5 @@
 export * from './lib/type/with-target'
+export * from './lib/auth-identity'
 export * from './lib/util/after'
 export * from './lib/util/code'
 export * from './lib/console-log'
