@@ -1,6 +1,15 @@
-# Peek
+# Peek - Voice & Video Chat Application with Angular and NestJS
+
+> In addition to studying and understanding how WebRTC works, I want to offer an alternative to society of something that works in a decentralized way and does not sell your information
+>
+> -- Guilherme Visi Siquinelli
+
+![CI](https://github.com/guiseek/peek/workflows/CI/badge.svg)
+![PR](https://github.com/guiseek/peek/workflows/PR/badge.svg)
 
 ## Local setup
+
+Install
 
 ```sh
 npm install
@@ -10,6 +19,9 @@ Run server and client
 
 ```sh
 npm run up
+
+# Alternative
+./scripts/serve.local.sh
 ```
 
 Run server only
