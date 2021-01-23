@@ -1,6 +1,12 @@
 <section>
-  <!-- <p>funny works!</p> -->
+  <audio #localAudio id="localAudio" playsinline autoplay muted></audio>
+  <audio #remoteAudio id="remoteAudio" playsinline autoplay></audio>
+</section>
+<section>
+  <peek-devices [formControl]="outputControl" kind="audiooutput"></peek-devices>
+  <pre>{{ outputControl.value | json }}</pre>
 </section>
 <footer>
-  <peek-wave></peek-wave>
+  <!--  color="#e91e6320" -->
+  <peek-wave (onStream)="gotStream($event)"></peek-wave>
 </footer>

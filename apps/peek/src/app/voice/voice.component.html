@@ -1,0 +1,7 @@
+<section>
+  <audio #localAudio id="localAudio" playsinline autoplay muted></audio>
+  <audio #remoteAudio id="remoteAudio" playsinline autoplay></audio>
+</section>
+<footer>
+  <peek-wave (onStream)="gotLocalStream($event)"></peek-wave>
+</footer>

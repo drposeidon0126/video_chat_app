@@ -1,23 +1,21 @@
-import { CreatePeek, GetDevices } from '@peek/core/usecase'
-import { ActivatedRoute, Router } from '@angular/router'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { WebSocketFacade } from '@peek/core/adapter'
-import { FormControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
+import { CreatePeek } from '@peek/core/usecase'
+import { ActivatedRoute, Router } from '@angular/router'
 import {
+  AfterViewInit,
   Component,
   ElementRef,
-  AfterViewInit,
-  ViewChild,
-  OnInit,
   OnDestroy,
+  ViewChild,
 } from '@angular/core'
 
 @Component({
-  selector: 'peek-funny',
-  templateUrl: './funny.component.html',
-  styleUrls: ['./funny.component.scss'],
+  selector: 'peek-voice',
+  templateUrl: './voice.component.html',
+  styleUrls: ['./voice.component.scss'],
 })
-export class FunnyComponent implements OnInit, AfterViewInit, OnDestroy {
+export class VoiceComponent implements AfterViewInit, OnDestroy {
   @ViewChild('localAudio')
   localAudioRef: ElementRef<HTMLAudioElement>
   localAudio: HTMLAudioElement
@@ -26,9 +24,8 @@ export class FunnyComponent implements OnInit, AfterViewInit, OnDestroy {
   remoteAudioRef: ElementRef<HTMLAudioElement>
   remoteAudio: HTMLAudioElement
 
-  getDevices = new GetDevices()
-
-  outputControl = new FormControl()
+  private _audio = new BehaviorSubject<boolean>(true)
+  audio = this._audio.asObservable()
 
   state: Observable<RTCSignalingState>
 
@@ -49,25 +46,22 @@ export class FunnyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.code = code
   }
 
-  ngOnInit(): void {
-    this.getDevices.execute('audiooutput').then((devices) => {
-      console.log(devices)
-    })
-  }
-
   ngAfterViewInit(): void {
     this.localAudio = this.localAudioRef.nativeElement
     this.remoteAudio = this.remoteAudioRef.nativeElement
-    this.peek.onCreated(() => this.setLocalStream())
-    this.peek.onJoined(() => this.setLocalStream())
+  }
+
+  gotLocalStream(stream: MediaStream) {
+    this.setLocalStream(stream)
+    this.peek.onCreated(() => this.setLocalStream(stream))
+    this.peek.onJoined(() => this.setLocalStream(stream))
     // this.peek.onFull(() => this.hangup())
     this.peek.track.subscribe(([streams]) => {
       this.remoteAudio.srcObject = streams
     })
   }
 
-  gotStream(stream: MediaStream) {
-    console.log(stream)
+  setLocalStream(stream: MediaStream) {
     this.peek.pc.addStream(stream)
     this.peek.pc.onremovestream = console.log
     this.localStream = stream
@@ -75,8 +69,15 @@ export class FunnyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.localAudio.srcObject = stream
     this.localAudio.muted = true
     this.peek.createOffer().then(() => {
-      console.log('setLocal')
+      console.log('offer');
     })
+  }
+
+  toggleAudio() {
+    const enabled = !this._audio.getValue()
+    const tracks = this.localStream.getAudioTracks()
+    tracks.forEach((t) => (t.enabled = enabled))
+    this._audio.next(enabled)
   }
 
   stop() {
@@ -87,19 +88,15 @@ export class FunnyComponent implements OnInit, AfterViewInit, OnDestroy {
   hangup() {
     console.log('hanup')
 
-    // this.stop()
-    // this.peek.close()
+    this.stop()
+    this.peek.close()
     this._router.navigateByUrl('/')
   }
 
   ngOnDestroy(): void {
     this.stop()
-    // this.peek.close()
+    this.peek.close()
     this.destroy.next()
     this.destroy.complete()
-  }
-
-  setLocalStream() {
-    // navigator.mediaDevices.getUserMedia(env.constraints).then((stream) => {})
   }
 }

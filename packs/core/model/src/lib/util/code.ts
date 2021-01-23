@@ -1,6 +1,6 @@
 import { PeekCode } from '../code'
 
-export const PEEK_CODE_REGEX = /^(?:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4})$/i
+export const PEEK_CODE_REGEX = /^([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4})$/i
 
 /**
  * Create a `PeekCode` string

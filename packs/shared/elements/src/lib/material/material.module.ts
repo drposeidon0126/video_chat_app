@@ -5,6 +5,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSelectModule } from '@angular/material/select'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatButtonModule } from '@angular/material/button'
@@ -24,6 +25,7 @@ import { NgModule } from '@angular/core'
     MatGridListModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatSelectModule,
     MatSliderModule,
     MatButtonModule,
     MatDialogModule,

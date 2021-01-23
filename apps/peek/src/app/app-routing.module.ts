@@ -1,24 +1,25 @@
-import { FunnyComponent } from './funny/funny.component'
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { VoiceComponent } from './voice/voice.component'
 import { HomeComponent } from './home/home.component'
 import { MeetComponent } from './meet/meet.component'
+import { VoiceGuard } from './voice/voice.guard'
+import { RouterModule } from '@angular/router'
 import { MeetGuard } from './meet/meet.guard'
+import { NgModule } from '@angular/core'
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
       [
-        // { path: '', pathMatch: 'full', redirectTo: 'home' },
         {
           path: '',
           component: HomeComponent,
           data: { animation: 'HomePage' },
         },
         {
-          path: 'funny',
-          component: FunnyComponent,
-          data: { animation: 'FunnyPage' },
+          path: 'voice/:code',
+          canActivate: [VoiceGuard],
+          component: VoiceComponent,
+          data: { animation: 'VoicePage' },
         },
         {
           path: ':code',

@@ -10,7 +10,9 @@ import { CheckComponent } from './check/check.component'
 import { CheckDialog } from './check/check.dialog'
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core';
-import { WaveComponent } from './wave/wave.component'
+import { WaveComponent } from './wave/wave.component';
+import { DevicesComponent } from './devices/devices.component';
+import { ConfirmDialog } from './confirm/confirm.dialog'
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { WaveComponent } from './wave/wave.component'
     CheckComponent,
     CheckDialog,
     WaveComponent,
+    DevicesComponent,
+    ConfirmDialog,
   ],
   exports: [
     PeekCodeControl,
@@ -36,6 +40,7 @@ import { WaveComponent } from './wave/wave.component'
     CheckComponent,
     CheckDialog,
     WaveComponent,
+    DevicesComponent,
   ],
 })
 export class SharedElementsModule {}

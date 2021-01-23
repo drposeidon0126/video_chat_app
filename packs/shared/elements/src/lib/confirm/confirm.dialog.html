@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ data?.title }}</h1>
+<p mat-dialog-content>{{ data?.text }}</p>
+<footer mat-dialog-actions>
+  <button mat-stroked-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-stroked-button
+    color="accent"
+    cdkFocusInitial
+    [mat-dialog-close]="data?.extra"
+  >
+    Continuar
+  </button>
+</footer>

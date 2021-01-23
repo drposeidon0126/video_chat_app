@@ -19,10 +19,11 @@ import { AppComponent } from './app.component'
 import { A11yModule } from '@angular/cdk/a11y'
 import { NgModule } from '@angular/core'
 import { env } from '../envs/env';
-import { FunnyComponent } from './funny/funny.component'
+import { FunnyComponent } from './funny/funny.component';
+import { VoiceComponent } from './voice/voice.component'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MeetComponent, FunnyComponent],
+  declarations: [AppComponent, HomeComponent, MeetComponent, FunnyComponent, VoiceComponent],
   imports: [
     A11yModule,
     BrowserModule,
