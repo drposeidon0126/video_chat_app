@@ -17,6 +17,7 @@ declare global {
 
 export class CreatePeek {
   sender = uuid()
+  counter = 0
 
   private _state = new BehaviorSubject<RTCSignalingState>('closed')
   state = this._state.asObservable()
@@ -34,12 +35,12 @@ export class CreatePeek {
     this.socket.on(PeekAction.Offer, this.handle.bind(this))
     this.socket.emit(PeekAction.CreateOrJoin, { code })
 
-    this.pc.onsignalingstatechange = ({
-      target,
-    }: WithTarget<RTCPeerConnection>) => {
-      console.log(target.signalingState)
-      this._state.next(target.signalingState)
-    }
+    this.pc.addEventListener(
+      'signalingstatechange',
+      ({ target }: WithTarget<RTCPeerConnection>) => {
+        this._state.next(target.signalingState)
+      }
+    )
 
     this.pc.addEventListener('icecandidate', ({ candidate }) => {
       candidate &&
@@ -49,6 +50,13 @@ export class CreatePeek {
     this.pc.addEventListener('track', ({ streams }) =>
       this._track.next(streams)
     )
+
+    // this.pc.onsignalingstatechange = ({
+    //   target,
+    // }: WithTarget<RTCPeerConnection>) => {
+    //   console.log(target.signalingState)
+    //   this._state.next(target.signalingState)
+    // }
 
     // this.pc.onicecandidate = ({ candidate }) => {
     //   candidate
@@ -127,6 +135,8 @@ export class CreatePeek {
   }
 
   private send(message: PeekPayload) {
+    this.counter++
+    console.log(`${this.counter}.: `, message)
     this.socket.emit(PeekAction.Offer, message)
   }
 

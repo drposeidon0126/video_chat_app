@@ -1,10 +1,12 @@
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatExpansionModule } from '@angular/material/expansion'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
+import { MatSliderModule } from '@angular/material/slider'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatListModule } from '@angular/material/list'
@@ -18,9 +20,11 @@ import { NgModule } from '@angular/core'
     MatBottomSheetModule,
     MatProgressBarModule,
     MatFormFieldModule,
+    MatExpansionModule,
     MatGridListModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatSliderModule,
     MatButtonModule,
     MatDialogModule,
     MatInputModule,

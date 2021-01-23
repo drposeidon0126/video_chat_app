@@ -23,4 +23,5 @@ describe('CheckComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
+
 })

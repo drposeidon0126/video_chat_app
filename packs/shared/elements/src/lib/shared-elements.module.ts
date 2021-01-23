@@ -9,7 +9,8 @@ import { PeekCodeDialog } from './code/code.dialog'
 import { CheckComponent } from './check/check.component'
 import { CheckDialog } from './check/check.dialog'
 import { CommonModule } from '@angular/common'
-import { NgModule } from '@angular/core'
+import { NgModule } from '@angular/core';
+import { WaveComponent } from './wave/wave.component'
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { NgModule } from '@angular/core'
     PeekCodeComponent,
     CheckComponent,
     CheckDialog,
+    WaveComponent,
   ],
   exports: [
     PeekCodeControl,
@@ -33,6 +35,7 @@ import { NgModule } from '@angular/core'
     PeekCodeComponent,
     CheckComponent,
     CheckDialog,
+    WaveComponent,
   ],
 })
 export class SharedElementsModule {}

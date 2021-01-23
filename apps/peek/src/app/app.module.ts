@@ -4,21 +4,25 @@ import {
   SharedDataAccessModule,
   SOCKET_CONFIG_TOKEN,
 } from '@peek/shared/data-access'
+import {
+  PeekMaterialModule,
+  SharedElementsModule
+} from '@peek/shared/elements'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { MeetComponent } from './meet/meet.component'
-import { PeekMaterialModule } from '@peek/shared/elements'
 import { HomeComponent } from './home/home.component'
 import { AppComponent } from './app.component'
 import { A11yModule } from '@angular/cdk/a11y'
 import { NgModule } from '@angular/core'
-import { env } from '../envs/env'
+import { env } from '../envs/env';
+import { FunnyComponent } from './funny/funny.component'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MeetComponent],
+  declarations: [AppComponent, HomeComponent, MeetComponent, FunnyComponent],
   imports: [
     A11yModule,
     BrowserModule,
@@ -26,6 +30,7 @@ import { env } from '../envs/env'
     MatSidenavModule,
     PeekMaterialModule,
     ReactiveFormsModule,
+    SharedElementsModule,
     SharedDataAccessModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: env.prod }),

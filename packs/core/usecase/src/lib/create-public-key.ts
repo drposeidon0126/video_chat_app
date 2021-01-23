@@ -42,22 +42,6 @@ export function publicKeyCredentialToJSON(
   } else return pubKeyCred
 }
 
-
-let subtleCrypto = window.crypto.subtle;
-
-// subtleCrypto.decrypt(...);
-// subtleCrypto.deriveBits(...);
-// subtleCrypto.deriveKey(...);
-// subtleCrypto.digest(...);
-// subtleCrypto.encrypt(...);
-// subtleCrypto.exportKey(...);
-// subtleCrypto.generateKey(...);
-// subtleCrypto.importKey(...);
-// subtleCrypto.sign(...);
-// subtleCrypto.unwrapKey(...);
-// subtleCrypto.verify(...);
-// subtleCrypto.wrapKey(...);
-
 function digestArrayBuffer(data: ArrayBuffer): Promise<ArrayBuffer> {
   return crypto.subtle.digest('SHA-256', data);
 }

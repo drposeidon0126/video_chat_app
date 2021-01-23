@@ -40,7 +40,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   destroy = new Subject<void>()
   localStream: MediaStream
   peek: CreatePeek
-
+  code: string
   constructor(
     private _router: Router,
     socket: WebSocketFacade,
@@ -51,6 +51,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
 
     this.peek = new CreatePeek(socket, code)
     this.state = this.peek.state
+    this.code = code
   }
 
   ngAfterViewInit(): void {
@@ -67,6 +68,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   setLocalStream() {
     navigator.mediaDevices.getUserMedia(env.constraints).then((stream) => {
       this.peek.pc.addStream(stream)
+      this.peek.pc.onremovestream = console.log
       this.localStream = stream
       this.localVideo.srcObject = null
       this.localVideo.srcObject = stream

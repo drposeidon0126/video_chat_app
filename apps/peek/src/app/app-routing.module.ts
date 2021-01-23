@@ -1,3 +1,4 @@
+import { FunnyComponent } from './funny/funny.component'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { HomeComponent } from './home/home.component'
@@ -13,6 +14,11 @@ import { MeetGuard } from './meet/meet.guard'
           path: '',
           component: HomeComponent,
           data: { animation: 'HomePage' },
+        },
+        {
+          path: 'funny',
+          component: FunnyComponent,
+          data: { animation: 'FunnyPage' },
         },
         {
           path: ':code',

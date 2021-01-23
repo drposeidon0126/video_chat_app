@@ -1,0 +1,34 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  canvas {
+    max-width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+  .mat-toolbar {
+    justify-content: space-between;
+    .mat-slider {
+      flex: 1;
+    }
+    // .mat-button-base {
+    //   min-width: 60px;
+    // }
+  }
+  // > section {
+  //   z-index: 10;
+  //   display: flex;
+  //   width: 100%;
+  //   bottom: 12px;
+  //   position: absolute;
+  //   .mat-slider {
+  //     flex: 1;
+  //     margin-left: 12px;
+  //   }
+  //   .mat-button-base {
+  //     min-width: 60px;
+  //   }
+  // }
+}
