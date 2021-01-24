@@ -1,0 +1,29 @@
+:host {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  .mat-card {
+    padding: 8px 8px 16px;
+    background-color: rgba(0,0,0,0.1);
+
+    &-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  form {
+    margin: 24px;
+    display: flex;
+    flex-flow: row wrap;
+
+  }
+
+  // form {
+  //   padding: 16px;
+  //   display: flex;
+  //   flex-flow: row wrap;
+  // }
+}

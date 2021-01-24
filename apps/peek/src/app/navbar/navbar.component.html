@@ -1,0 +1,18 @@
+<mat-toolbar role="banner" class="peek-top-bar">
+  <a mat-icon-button routerLink="/">
+    <mat-icon>home</mat-icon>
+  </a>
+  <span class="space"></span>
+  <h1 role="logo" class="example-app-name">{{ title }}</h1>
+  <span class="space"></span>
+  <ng-container *ngIf="identity.getStoredValue() as user; else loginTmpl">
+    <a mat-stroked-button>
+      {{ user.name }}
+    </a>
+  </ng-container>
+  <ng-template #loginTmpl>
+    <a mat-icon-button routerLink="/auth">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+  </ng-template>
+</mat-toolbar>

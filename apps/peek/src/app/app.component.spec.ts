@@ -5,6 +5,7 @@ import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { SharedDataAccessModule } from '@peek/shared/data-access'
 import { PeekMaterialModule } from '@peek/shared/elements'
+import { NavbarComponent } from './navbar/navbar.component'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -16,7 +17,7 @@ describe('AppComponent', () => {
         MatSidenavModule,
         BrowserAnimationsModule,
       ],
-      declarations: [AppComponent],
+      declarations: [AppComponent, NavbarComponent],
       providers: [],
     }).compileComponents()
   })

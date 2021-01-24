@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Usuário</mat-label>
+    <input
+      matInput
+      type="text"
+      name="username"
+      autocomplete="username"
+      formControlName="username"
+    />
+    <mat-hint>Apenas caracteres alfanumérico</mat-hint>
+    <mat-error>Obrigatório</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Senha</mat-label>
+    <input
+      matInput
+      peekPwnedCheck
+      type="password"
+      autocomplete="current-password"
+      formControlName="password"
+    />
+    <mat-error>Obrigatório</mat-error>
+  </mat-form-field>
+</form>

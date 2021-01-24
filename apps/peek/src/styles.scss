@@ -19,7 +19,7 @@ $peek-typography: mat-typography-config(
 
 $peek-primary: mat-palette($mat-pink);
 $peek-accent: mat-palette($mat-light-blue);
-$peek-warn: mat-palette($mat-deep-orange);
+$peek-warn: mat-palette($mat-orange);
 $peek-theme: mat-dark-theme(
   (
     color: (
@@ -78,4 +78,8 @@ body .mat-drawer-backdrop.mat-drawer-shown {
     width: 100%;
     padding: 6px 8px;
   }
+}
+.mat-form-field {
+  width: 100%;
+  min-width: unset;
 }

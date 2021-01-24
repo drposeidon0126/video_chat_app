@@ -1,32 +1,39 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { PeekMaterialModule, SharedElementsModule } from '@peek/shared/elements'
 import { WebSocketFacade, WebSocketFactory } from '@peek/core/adapter'
-import {
-  SharedDataAccessModule,
-  SOCKET_CONFIG_TOKEN,
-} from '@peek/shared/data-access'
-import {
-  PeekMaterialModule,
-  SharedElementsModule
-} from '@peek/shared/elements'
+import { ServiceWorkerModule } from '@angular/service-worker'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
+import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
-import { ServiceWorkerModule } from '@angular/service-worker'
+import { NavbarComponent } from './navbar/navbar.component'
+import { FunnyComponent } from './funny/funny.component'
+import { VoiceComponent } from './voice/voice.component'
 import { MeetComponent } from './meet/meet.component'
 import { HomeComponent } from './home/home.component'
 import { AppComponent } from './app.component'
 import { A11yModule } from '@angular/cdk/a11y'
 import { NgModule } from '@angular/core'
-import { env } from '../envs/env';
-import { FunnyComponent } from './funny/funny.component';
-import { VoiceComponent } from './voice/voice.component'
+import { env } from '../envs/env'
+import {
+  SharedDataAccessModule,
+  SOCKET_CONFIG_TOKEN,
+} from '@peek/shared/data-access'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MeetComponent, FunnyComponent, VoiceComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    MeetComponent,
+    FunnyComponent,
+    VoiceComponent,
+    NavbarComponent,
+  ],
   imports: [
     A11yModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MatSidenavModule,
     PeekMaterialModule,

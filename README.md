@@ -1,6 +1,6 @@
-# Peek - Voice & Video Chat Application with Angular and NestJS
+# Voice & Video Chat Application with Angular and NestJS
 
-> In addition to studying and understanding how WebRTC works, I want to offer an alternative to society of something that works in a decentralized way and does not sell your information
+> In addition to understand how WebRTC works, I want to offer an alternative approach to the society of something that works in a decentralized way and does not sell your information.
 >
 > -- Guilherme Visi Siquinelli
 

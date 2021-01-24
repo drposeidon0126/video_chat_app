@@ -22,6 +22,12 @@ import { NgModule } from '@angular/core'
           data: { animation: 'VoicePage' },
         },
         {
+          path: 'auth',
+          data: { animation: 'AuthPage' },
+          loadChildren: () =>
+            import('./auth/auth.module').then((m) => m.AuthModule),
+        },
+        {
           path: ':code',
           canActivate: [MeetGuard],
           component: MeetComponent,
