@@ -1,6 +1,6 @@
 import { CreatePeek, GetDevices } from '@peek/core/usecase'
 import { ActivatedRoute, Router } from '@angular/router'
-import { WebSocketFacade } from '@peek/core/adapter'
+import { SocketAdapter } from '@peek/core/adapter'
 import { FormControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import {
@@ -38,7 +38,7 @@ export class FunnyComponent implements OnInit, AfterViewInit, OnDestroy {
   code: string
   constructor(
     private _router: Router,
-    socket: WebSocketFacade,
+    socket: SocketAdapter,
     route: ActivatedRoute
   ) {
     const code = route.snapshot.paramMap.get('code')

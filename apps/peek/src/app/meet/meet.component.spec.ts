@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { WebSocketFacade } from '@peek/core/adapter'
+import { SocketAdapter } from '@peek/core/adapter'
 import { MeetComponent } from './meet.component'
 
 const webSocketMock = {
@@ -25,7 +25,7 @@ describe('MeetComponent', () => {
         MatToolbarModule,
       ],
       declarations: [MeetComponent],
-      providers: [{ provide: WebSocketFacade, useValue: webSocketMock }],
+      providers: [{ provide: SocketAdapter, useValue: webSocketMock }],
     }).compileComponents()
   })
 

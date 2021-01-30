@@ -29,6 +29,7 @@
     "shared-elements": { "tags": [] },
     "shared-data-access": { "tags": [] },
     "util-format": { "tags": ["type:util"] },
-    "core-entity": { "tags": [] }
+    "core-entity": { "tags": [] },
+    "util-data": { "tags": [] }
   }
 }

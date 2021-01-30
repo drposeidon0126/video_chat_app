@@ -1,1 +1,1 @@
-export * from './lib/web-socket.facade'
+export * from './lib/web-socket.adapter'

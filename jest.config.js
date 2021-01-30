@@ -10,5 +10,6 @@ module.exports = {
     '<rootDir>/packs/shared/data-access',
     '<rootDir>/packs/util/format',
     '<rootDir>/packs/core/entity',
+    '<rootDir>/packs/util/data',
   ],
 }

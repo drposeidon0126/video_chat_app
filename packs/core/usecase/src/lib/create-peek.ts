@@ -5,7 +5,7 @@ import {
   PeekAction,
   PeekPayload,
 } from '@peek/core/model'
-import { WebSocketFacade } from '@peek/core/adapter'
+import { SocketAdapter } from '@peek/core/adapter'
 import { BehaviorSubject } from 'rxjs'
 
 declare global {
@@ -26,7 +26,7 @@ export class CreatePeek {
   track = this._track.asObservable()
 
   constructor(
-    private socket: WebSocketFacade,
+    private socket: SocketAdapter,
     private code: string,
     public pc: RTCPeerConnection = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],

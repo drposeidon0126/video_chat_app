@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { PeekMaterialModule, SharedElementsModule } from '@peek/shared/elements'
-import { WebSocketFacade, WebSocketFactory } from '@peek/core/adapter'
+import { SocketAdapter, SocketFactory } from '@peek/core/adapter'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { BrowserModule } from '@angular/platform-browser'
@@ -46,8 +46,8 @@ import {
   providers: [
     { provide: SOCKET_CONFIG_TOKEN, useValue: env.webSocket ?? {} },
     {
-      provide: WebSocketFacade,
-      useFactory: WebSocketFactory,
+      provide: SocketAdapter,
+      useFactory: SocketFactory,
       deps: [SOCKET_CONFIG_TOKEN],
     },
   ],

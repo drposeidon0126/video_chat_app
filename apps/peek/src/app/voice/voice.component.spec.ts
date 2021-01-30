@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { SharedElementsModule } from '@peek/shared/elements'
-import { WebSocketFacade } from '@peek/core/adapter'
+import { SocketAdapter } from '@peek/core/adapter'
 import { VoiceComponent } from './voice.component'
 
 const webSocketMock = {
@@ -18,7 +18,7 @@ describe('VoiceComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [VoiceComponent],
       imports: [RouterTestingModule, SharedElementsModule],
-      providers: [{ provide: WebSocketFacade, useValue: webSocketMock }],
+      providers: [{ provide: SocketAdapter, useValue: webSocketMock }],
     }).compileComponents()
   })
 

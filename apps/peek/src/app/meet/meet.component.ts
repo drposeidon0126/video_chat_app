@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
-import { WebSocketFacade } from '@peek/core/adapter'
+import { SocketAdapter } from '@peek/core/adapter'
 import { CreatePeek } from '@peek/core/usecase'
 import { ActivatedRoute, Router } from '@angular/router'
 import { getDisplayMedia } from './meet.media'
@@ -43,7 +43,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   code: string
   constructor(
     private _router: Router,
-    socket: WebSocketFacade,
+    socket: SocketAdapter,
     route: ActivatedRoute
   ) {
     const code = route.snapshot.paramMap.get('code')

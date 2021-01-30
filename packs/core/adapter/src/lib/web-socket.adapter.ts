@@ -7,11 +7,11 @@ export interface WebSocketConfig {
   options?: any
 }
 
-export function WebSocketFactory(config: WebSocketConfig) {
-  return new WebSocketFacade(config)
+export function SocketFactory(config: WebSocketConfig) {
+  return new SocketAdapter(config)
 }
 
-export class WebSocketFacade {
+export class SocketAdapter {
   subscribersCounter: Record<string, number> = {}
   eventObservables$: Record<string, Observable<any>> = {}
   ioSocket: any
@@ -20,7 +20,7 @@ export class WebSocketFacade {
     options: {},
   }
 
-  constructor(private config: WebSocketConfig) {
+  constructor(readonly config: WebSocketConfig) {
     if (config === undefined) {
       config = this.emptyConfig
     }
