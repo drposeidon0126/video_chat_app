@@ -1,4 +1,12 @@
-:host .mat-form-field {
-  flex: 1;
-  margin-top: 8px;
+:host {
+  width: 260px;
+  display: block;
+  form {
+    display: flex;
+    flex-direction: column;
+    .mat-form-field {
+      flex: 1;
+      margin-top: 8px;
+    }
+  }
 }

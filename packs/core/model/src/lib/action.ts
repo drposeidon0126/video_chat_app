@@ -17,6 +17,7 @@
 export enum PeekAction {
   CreateOrJoin = 'create or join',
   Created = 'created',
+  Exited = 'exited',
   Ready = 'ready',
   Joined = 'joined',
   Full = 'full',

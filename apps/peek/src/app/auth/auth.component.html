@@ -1,6 +1,11 @@
-<form cdkTrapFocus [formGroup]="form" (ngSubmit)="authFacade.login(form.value)">
+<form cdkTrapFocus [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-card>
-    <mat-tab-group dynamicHeight mat-stretch-tabs animationDuration="2000ms">
+    <mat-tab-group
+      dynamicHeight
+      mat-stretch-tabs
+      (selectedTabChange)="onTabChange($event)"
+      animationDuration="1200ms"
+    >
       <mat-tab mat-card-content label="Cadastro">
         <peek-sign-up [form]="form"></peek-sign-up>
       </mat-tab>
@@ -9,13 +14,8 @@
       </mat-tab>
     </mat-tab-group>
 
-    <peek-pwned-message
-      *ngIf="password.errors?.pwned"
-      [pwned]="password.errors?.pwned"
-    ></peek-pwned-message>
-
     <mat-card-actions>
-      <button mat-button tabindex="-1" type="reset">Limpar</button>
+      <button mat-button type="reset">Limpar</button>
       <button
         type="submit"
         color="accent"

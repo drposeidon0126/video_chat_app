@@ -59,10 +59,15 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
     this.remoteVideo = this.remoteVideoRef.nativeElement
     this.peek.onCreated(() => this.setLocalStream())
     this.peek.onJoined(() => this.setLocalStream())
+    this.peek.onJoined((id) => this.onExited(id))
     // this.peek.onFull(() => this.hangup())
     this.peek.track.subscribe(([streams]) => {
       this.remoteVideo.srcObject = streams
     })
+  }
+
+  onExited(id: string) {
+    console.log('exited: ', id)
   }
 
   setLocalStream() {

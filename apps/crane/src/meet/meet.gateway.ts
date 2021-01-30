@@ -13,7 +13,6 @@ import { MeetGuard } from './meet.guard'
 
 @WebSocketGateway()
 export class MeetGateway implements OnGatewayDisconnect {
-
   @WebSocketServer()
   server: Server
 
@@ -51,6 +50,7 @@ export class MeetGateway implements OnGatewayDisconnect {
   }
 
   handleDisconnect(contact: Socket) {
+    contact.broadcast.emit(PeekAction.Exited, contact.id)
     contact.leaveAll()
   }
 

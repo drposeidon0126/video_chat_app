@@ -1,5 +1,36 @@
 <form [formGroup]="form">
   <mat-form-field>
+    <mat-label>Usuário</mat-label>
+    <input
+    matInput
+    type="text"
+    name="username"
+    autocomplete="username"
+    formControlName="username"
+    />
+    <mat-hint>Apenas caracteres alfanumérico</mat-hint>
+    <mat-error>Obrigatório</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Senha</mat-label>
+    <input
+    matInput
+    peekPwnedCheck
+    type="password"
+    autocomplete="new-password"
+    formControlName="password"
+    />
+    <mat-hint>Mínimo de 6 caracteres</mat-hint>
+    <mat-error *ngIf="password.hasError('required')">Obrigatório</mat-error>
+    <mat-error *ngIf="password.hasError('pwned')">Senha publicamente vulnerável</mat-error>
+  </mat-form-field>
+
+  <peek-pwned-message
+    *ngIf="password.errors?.pwned"
+    [pwned]="password.errors?.pwned"
+  ></peek-pwned-message>
+
+  <mat-form-field>
     <mat-label>Nome</mat-label>
     <input
       matInput
@@ -10,28 +41,5 @@
       formControlName="name"
     />
     <mat-hint>Opcional</mat-hint>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Usuário</mat-label>
-    <input
-      matInput
-      type="text"
-      name="username"
-      autocomplete="username"
-      formControlName="username"
-    />
-    <mat-hint>Apenas caracteres alfanumérico</mat-hint>
-    <mat-error>Obrigatório</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Senha</mat-label>
-    <input
-      matInput
-      peekPwnedCheck
-      type="password"
-      autocomplete="new-password"
-      formControlName="password"
-    />
-    <mat-error>Obrigatório</mat-error>
   </mat-form-field>
 </form>

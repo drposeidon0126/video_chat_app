@@ -50,21 +50,6 @@ export class CreatePeek {
     this.pc.addEventListener('track', ({ streams }) =>
       this._track.next(streams)
     )
-
-    // this.pc.onsignalingstatechange = ({
-    //   target,
-    // }: WithTarget<RTCPeerConnection>) => {
-    //   console.log(target.signalingState)
-    //   this._state.next(target.signalingState)
-    // }
-
-    // this.pc.onicecandidate = ({ candidate }) => {
-    //   candidate
-    //     ? this.send(new PeekPayload(this.sender, this.code, { ice: candidate }))
-    //     : console.log('Sent All Ice')
-    // }
-
-    // this.pc.ontrack = ({ streams }) => this._track.next(streams)
   }
 
   onCreated(exec: Function) {
@@ -79,8 +64,14 @@ export class CreatePeek {
     this.socket.on(PeekAction.Full, exec)
   }
 
+  onExited(exec: Function) {
+    this.socket.on(PeekAction.Exited, exec)
+  }
+
   handle({ payload, sender }: PeekPayload) {
     try {
+      console.log(sender !== this.sender, sender, this.sender);
+
       if (sender !== this.sender) {
         const { sdp, ice } = payload
         if (this.pc !== null && ice !== undefined) {
